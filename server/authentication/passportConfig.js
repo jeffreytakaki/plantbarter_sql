@@ -1,7 +1,7 @@
 const flash = require('express-flash-messages')
 const connection = require('../database_connect');				
 const LocalStrategy   = require('passport-local').Strategy;
-const handleAuth = require('./handleAuth');
+const encryptPassword = require('./encryptPassword');
 const User = require("../models/User");
 
 // expose this function to our app using module.exports
