@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const connection = require('./database_connect');
 const passportConfig = require('./authentication/passportConfig');
+const checkSession = require('./authentication/checkSession');
 const bodyParser = require('body-parser');
 const users = require('./routes/users');
 const plants = require('./routes/plants');
@@ -12,13 +13,8 @@ const cors = require('cors');
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 
-const isAuthenticated = (req,res,next) => {
-    if(req.user) return next();
 
-    return res.status(401).json({
-        error: 'User not authenticated'
-    })
- }
+
 
 // create our Express app
 const app = express();
@@ -76,7 +72,7 @@ app.get('/logout', (req, res) => {
 });
 
 // get all plants
-app.get('/plants', isAuthenticated, function (req, res) {
+app.get('/plants', checkSession, function (req, res) {
     const q = `SELECT * FROM plants`;
     connection.query(q, (error, results) => {
         if (error) res.json(error);

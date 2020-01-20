@@ -35,6 +35,4 @@ connection.connect(error => {
     } 
 });
 
-//   exports.connectDatabase = connectDatabase;
-
-  module.exports = connection;
+module.exports = connection;
