@@ -17,6 +17,12 @@ export default class PlantCollection extends React.Component {
 
     componentWillMount() {
         console.log('store', store.getState())
+        // const instance = axios.create({
+        //     baseURL: '/',
+        //     timeout: 1000,
+        //     headers: {'X-Custom-Header': 'foobar'}
+        // });
+
         axios.get('plants')
         .then(response => {
             this.setState({collection: response.data})

@@ -1,27 +1,32 @@
 const flash = require('express-flash-messages')
 const connection = require('../database_connect');				
 const LocalStrategy   = require('passport-local').Strategy;
-const encryptPassword = require('./encryptPassword');
+const pwHelpers = require('./encryptPassword');
 const User = require("../models/User");
+
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
 
     passport.serializeUser(function(user, done) {
-        console.log('serialize session', user.user_id);
-        done(null, user.user_id);
+        // console.log('serialize session', user.user_id);
+        done(null, user);
     }); 
     passport.deserializeUser(function(user, done) {
-        console.log('deserialize')
-        let q = `SELECT * FROM users WHERE email = '${req.body.email}'`;
+        // console.log('deserialize')
+        // console.log('user', user)
+        let q = `SELECT * FROM users WHERE email = '${user.email}'`;
 
         connection.query(q, (error, results) => {
             if(error) {
-                console.log('deserialize error', error)
+                // console.log('deserialize error', error)
                 return done(null, error)
             }
-            console.log('deserialize user', results)
-            return done(null,results.insertId);
+            // console.log('deserialize user', results)
+            return done(null,results[0].user_id);
         });        
     });
 
@@ -37,7 +42,7 @@ module.exports = function(passport) {
         passwordField : 'password',
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
-    function(req, email, password, done) {
+    async function(req, email, password, done) {
         // console.log('req', req);
 		// find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
@@ -47,18 +52,18 @@ module.exports = function(passport) {
         newUserMysql.last_name    = req.body.last_name;
         newUserMysql.username    = req.body.username;
         newUserMysql.email    = req.body.email;
-        newUserMysql.password = password; // use the generateHash function in our user model
+        newUserMysql.password = await pwHelpers.encryptPassword(password); // use the generateHash function in our user model
 
         let q = `INSERT users(first_name, last_name, email, user_name, password) VALUES ('${newUserMysql.first_name}', '${newUserMysql.last_name}', '${newUserMysql.email}', '${newUserMysql.username}', '${newUserMysql.password}');`;
-        console.log('local sign in', q);
+        console.log('local sign up', q);
         connection.query(q, (error, results,field) => {
             if(error) {
-                console.log('error creating user', error.error)
+                console.log('error creating user', error)
                 return done(null, error);
             }
             
             console.log('results.insertId', results.insertId)
-            console.log('field', field)
+    
             return done(null,results.insertId);
         })
 
@@ -76,22 +81,23 @@ module.exports = function(passport) {
         passwordField : 'password',
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
-    function(req, email, password, done) { // callback with email and password from our form
-        let q = `SELECT * FROM users WHERE users.email = '${req.body.email}' AND users.password = '${req.body.password}';`;
-
+    async function(req, email, password, done) { // callback with email and password from our form
+        let q = `SELECT * FROM users WHERE users.email = '${req.body.email}';`;
         connection.query(q, (error, results,field) => {
-            if(error) {
-                console.log('second')
-                console.log('error authenticating user', error.error)
-                // return done(null, error);
-            }
+            if(error) return done(null, error);
             
             if(results.length) {
-                console.log('results', results[0])
-                return done(null,results[0]);
+                // Load hash from your password DB.
+                bcrypt.compare(req.body.password, results[0].password, function(err, res) {
+                    // res == true
+                    if(res) return done(null,results[0]);
+                    console.log('req.session',req.session)
+                    req.session.user = {user_id: results[0].user_id};
+                    console.log('req.session',req.session)
+                    return done(null);
+                });
             }
-
-            return done(null, false);
+            
         });
 
     }));

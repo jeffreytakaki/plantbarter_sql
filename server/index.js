@@ -9,6 +9,16 @@ const bodyParser = require('body-parser');
 const users = require('./routes/users');
 const plants = require('./routes/plants');
 const cors = require('cors');
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
+
+const isAuthenticated = (req,res,next) => {
+    if(req.user) return next();
+
+    return res.status(401).json({
+        error: 'User not authenticated'
+    })
+ }
 
 // create our Express app
 const app = express();
@@ -21,6 +31,24 @@ app.use(bodyParser.urlencoded({ // Takes the raw requests and turns them into us
 	extended: true
 }));
 app.use(bodyParser.json());
+
+var session_options = {
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: 'Tardy820!!',
+    database: 'plantBarter_01'
+};
+
+const sessionStore = new MySQLStore(session_options);
+
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false },
+    store: sessionStore
+}))
 
 passportConfig(passport); //get local strategies from passport
 
@@ -38,7 +66,7 @@ app.post('/signup', passport.authenticate('local-signup'), (req, res) => {
   res.json(req.user)
 });
 app.post('/login', passport.authenticate('local-login'), (req, res) => {
-    console.log(this)
+    console.log(this.req)
     res.status(200).json(req.user)
 });
 app.get('/logout', (req, res) => {
@@ -48,7 +76,7 @@ app.get('/logout', (req, res) => {
 });
 
 // get all plants
-app.get('/plants', function (req, res) {
+app.get('/plants', isAuthenticated, function (req, res) {
     const q = `SELECT * FROM plants`;
     connection.query(q, (error, results) => {
         if (error) res.json(error);

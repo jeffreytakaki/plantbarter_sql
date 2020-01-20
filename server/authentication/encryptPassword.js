@@ -2,12 +2,33 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 const encryptPassword = (userPassword) => {
-    bcrypt.hash(userPassword, saltRounds, function(err, hash) {
-        // Store hash in your password DB.
-      });
+    const passwordText = userPassword.toString();
+    console.log('passwordText',passwordText)
+    return new Promise((resolve, reject) => {
+        bcrypt.hash(userPassword, saltRounds, (err, hash) => {
+            // Store hash in your password DB.
+            if (err) reject(err);
+            
+            resolve(hash);
+        });
+    })
+    
+
+};
+
+const unhashPW = async (password) => {
+    //... fetch user from a db etc.
+ 
+    const match = await bcrypt.compare(password, user.passwordHash);
+ 
+    if(match) {
+        //login
+    }
+ 
+    //...
 }
 
 
 
 
-module.exports = encryptPassword;
+module.exports = {encryptPassword, unhashPW};
