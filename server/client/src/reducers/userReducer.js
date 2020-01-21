@@ -5,8 +5,10 @@ const users = (state = [], action) => {
         case CREATE_USER :
             return Object.assign({}, state, 
                 {
-                    username: action.payload.username,
-                    email: action.payload.payloademail
+                    user_name: action.payload.data.username,
+                    email: action.payload.payload.data.email,
+                    first_name: action.payload.payload.data.first_name,
+                    last_name: action.payload.payload.data.last_name
                 }
             );
         
@@ -14,8 +16,10 @@ const users = (state = [], action) => {
             console.log(action.payload)
             return Object.assign({}, state, 
                 {
-                    username: action.payload.username,
-                    email: action.payload.payloademail
+                    user_name: action.payload.data.username,
+                    email: action.payload.payload.data.email,
+                    first_name: action.payload.payload.data.first_name,
+                    last_name: action.payload.payload.data.last_name
                 }
             );
         default:

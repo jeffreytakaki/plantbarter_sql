@@ -2,10 +2,12 @@ import React from 'react';
 import Plant from './Plant';
 import axios from 'axios';
 import { combineReducers } from 'redux';
+import { connect } from 'react-redux';
 import store from '../store';
+import {getPlantsList} from '../actions/plantActions';
 
 
-export default class PlantCollection extends React.Component {
+class PlantCollection extends React.Component {
     constructor() {
         super();
 
@@ -23,10 +25,8 @@ export default class PlantCollection extends React.Component {
         //     headers: {'X-Custom-Header': 'foobar'}
         // });
 
-        axios.get('plants')
-        .then(response => {
-            this.setState({collection: response.data})
-        })
+        this.props.getPlants()
+
     }
 
     render() {
@@ -46,5 +46,22 @@ export default class PlantCollection extends React.Component {
         )
     }
 };
+
+const mapDispatchToEvents = (dispatch) => {
+    return {
+        getPlants: (plants) => {
+            dispatch(getPlantsList(plants));
+        }
+    };
+};
+
+const mapStateToProps = (state) => {
+    return {
+        plants: state.plants
+    }
+};
+
+const PlantCollectionConnected = connect(mapStateToProps,mapDispatchToEvents)(PlantCollection)
+export default PlantCollectionConnected
 
 

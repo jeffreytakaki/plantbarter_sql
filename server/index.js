@@ -13,9 +13,6 @@ const cors = require('cors');
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 
-
-
-
 // create our Express app
 const app = express();
 app.use(cors());
