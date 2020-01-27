@@ -16,8 +16,9 @@ module.exports = function(passport) {
         done(null, user);
     }); 
     passport.deserializeUser(function(user, done) {
-        // console.log('deserialize')
-        // console.log('user', user)
+        console.log('deserialize')
+        console.log('user', user)
+
         let q = `SELECT * FROM users WHERE email = '${user.email}'`;
 
         connection.query(q, (error, results) => {
@@ -59,12 +60,12 @@ module.exports = function(passport) {
         connection.query(q, (error, results,field) => {
             if(error) {
                 console.log('error creating user', error)
-                return done(null, error);
+                return done(error);
             }
             
             console.log('results.insertId', results.insertId)
     
-            return done(null,results.insertId);
+            return done(null,results);
         })
 
     }));
@@ -83,6 +84,7 @@ module.exports = function(passport) {
     },
     async function(req, email, password, done) { // callback with email and password from our form
         let q = `SELECT * FROM users WHERE users.email = '${req.body.email}';`;
+        console.log('q', q)
         connection.query(q, (error, results,field) => {
             if(error) return done(null, error);
             

@@ -7,10 +7,7 @@ export const getPlantsList = (plants) => {
 
         console.log('response', response)
 
-        return {
-            type: "GET_PLANT_LIST",
-            payload: response
-        }
+        dispatch({type: "GET_PLANT_LIST", payload: response })
     }
 }
 

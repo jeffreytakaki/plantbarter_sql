@@ -31,16 +31,16 @@ class PlantCollection extends React.Component {
 
     render() {
 
-        let plantList = this.state.collection.map((plant, i) => {
-            return (
-            <Plant key={i} plant={plant} />
-            )
-        });
-
+        // let plantList = this.props.plants.map((plant, i) => {
+        //     return (
+        //     <Plant key={i} plant={plant} />
+        //     )
+        // });
+console.log('this.props', this.props)
         return (
             <div className="plant-collection">
                 <ul>
-                    {plantList}
+                    {/* {plantList} */}
                 </ul>
             </div>
         )
@@ -56,6 +56,7 @@ const mapDispatchToEvents = (dispatch) => {
 };
 
 const mapStateToProps = (state) => {
+    console.log('plant state',state)
     return {
         plants: state.plants
     }

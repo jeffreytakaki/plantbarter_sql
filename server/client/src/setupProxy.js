@@ -24,4 +24,12 @@ module.exports = function(app) {
       changeOrigin: true,
     })
   );
+
+  app.use(
+    '/logout',
+    proxy({
+      target: 'http://localhost:5000',
+      changeOrigin: true,
+    })
+  );
 };

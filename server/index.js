@@ -63,9 +63,11 @@ app.post('/login', passport.authenticate('local-login'), (req, res) => {
     res.status(200).json(req.user)
 });
 app.get('/logout', (req, res) => {
-  console.log('logout')
-  req.logout();
-  return res.status(200).json({status:'success'});
+    console.log('logout')
+    req.session.destroy(function (err) {
+        // res.redirect('/'); //Inside a callback… bulletproof!
+        return res.status(200).json({status:'success'});
+      });
 });
 
 // get all plants

@@ -22,18 +22,3 @@ export function registerUser(user) {
         dispatch({type: CREATE_USER, payload: response })
     }
 }
-
-function userSuccess(response) {
-    return {
-        type: LOGIN_USER,
-        payload: response
-    }
-}
-
-function userError(response) {
-    console.log('hi')
-    return {
-        type: LOGIN_USER,
-        payload: response
-    }
-}
