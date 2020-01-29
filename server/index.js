@@ -62,12 +62,14 @@ app.post('/login', passport.authenticate('local-login'), (req, res) => {
     console.log(this.req)
     res.status(200).json(req.user)
 });
-app.get('/logout', (req, res) => {
-    console.log('logout')
-    req.session.destroy(function (err) {
-        // res.redirect('/'); //Inside a callback… bulletproof!
-        return res.status(200).json({status:'success'});
-      });
+app.post('/logout', (req, res) => {
+    console.log('logout 1')
+    req.session = null;
+    return res.status(200).json([]);
+    // req.session.destroy(function (err) {
+    //     // res.redirect('/'); //Inside a callback… bulletproof!
+    //     return res.status(200).json({status:'success'});
+    //   });
 });
 
 // get all plants

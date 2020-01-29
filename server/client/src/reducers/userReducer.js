@@ -1,6 +1,6 @@
-import { LOGIN_USER, CREATE_USER } from '../actions/types';
+import { LOGIN_USER, CREATE_USER, LOGOUT_USER } from '../actions/types';
 
-const users = (state = [], action) => {
+const users = (state = {}, action) => {
     switch (action.type) {
         case CREATE_USER :
             return Object.assign({}, state, 
@@ -22,6 +22,12 @@ const users = (state = [], action) => {
                     last_name: action.payload.data.last_name
                 }
             );
+
+        case LOGOUT_USER:
+        
+            state = {}
+            return state;
+
         default:
             return state
     }

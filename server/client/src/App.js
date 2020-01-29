@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Header from './components/Header';
+import HeaderConnected from './components/Header';
 import PlantCollection from './components/Plant-Collection';
 import PlantForm from './components/Plant-Form'
 import {Provider} from 'react-redux';
@@ -12,7 +12,7 @@ function App() {
     return (
         <Provider store={store}>
             <div className="page-container">
-                <Header />
+                <HeaderConnected />
                 <PlantForm />
                 <PlantCollection />
             </div>

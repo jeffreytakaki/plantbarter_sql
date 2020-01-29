@@ -18,7 +18,7 @@ class PlantCollection extends React.Component {
     }
 
     componentWillMount() {
-        console.log('store', store.getState())
+        // console.log('store', store.getState())
         // const instance = axios.create({
         //     baseURL: '/',
         //     timeout: 1000,
@@ -36,7 +36,7 @@ class PlantCollection extends React.Component {
         //     <Plant key={i} plant={plant} />
         //     )
         // });
-console.log('this.props', this.props)
+// console.log('this.props', this.props)
         return (
             <div className="plant-collection">
                 <ul>
@@ -56,7 +56,7 @@ const mapDispatchToEvents = (dispatch) => {
 };
 
 const mapStateToProps = (state) => {
-    console.log('plant state',state)
+    // console.log('plant state',state)
     return {
         plants: state.plants
     }

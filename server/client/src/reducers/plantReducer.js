@@ -3,7 +3,7 @@ import { CREATE_USER_PLANT } from '../actions/types';
 const plants = (state = [], action) => {
     switch (action.type) {
         case 'GET_PLANT_LIST':
-            console.log('hello')
+            // console.log('hello')
             return action.payload.data
             // return Object.assign([], state, 
             //     action.payload.response.data

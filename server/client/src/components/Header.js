@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import LoginFormConnected from './LoginForm';
 import RegisterFormConnected from './RegisterForm';
+import { logoutUser } from '../actions/userAction';
 import axios from 'axios';
 
 
@@ -9,6 +10,7 @@ class Header extends React.Component {
     constructor(props) {
         super(props)
         this.handleUserState = this.handleUserState.bind(this)
+        this.logout = this.logout.bind(this)
     }
 
     componentWillMount() {
@@ -16,24 +18,22 @@ class Header extends React.Component {
     }
 
     async logout() {
-        const logout = await axios.get('/logout');
-        console.log("logout", logout)
+        this.props.logout()
     }
 
     handleUserState(props) {
-
-        if (!this.props.users.length) {
+        
+        const user = Object.keys(this.props.users).length === 0 && this.props.users.constructor === Object
+        if (user) {
             return (
                 <div>
-                <div className="section"><LoginFormConnected /></div>
-                <div className="section"><RegisterFormConnected /></div>
+                    <div className="section"><LoginFormConnected /></div>
+                    <div className="section"><RegisterFormConnected /></div>
                 </div>
             )
-        } else {
-            return (
-                <div className="section"><button onClick={this.logout}>logout</button></div>
-            )
             
+        } else {
+            return <div className="section"><button onClick={this.logout}>logout</button></div>;
         }
     }
 
@@ -58,7 +58,14 @@ const mapStateToProps = (state) => {
         users: state.users
     }
 };
+const mapDispatchToEvents = (dispatch) => {
+    return {
+        logout: (user) => {
+            dispatch(logoutUser(user));
+        }
+    };
+};
 
-const HeaderConnected = connect(mapStateToProps)(Header)
+const HeaderConnected = connect(mapStateToProps,mapDispatchToEvents)(Header)
 export default HeaderConnected
 
