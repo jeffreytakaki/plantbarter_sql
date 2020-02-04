@@ -8,6 +8,7 @@ const passportConfig = require('./authentication/passportConfig');
 const bodyParser = require('body-parser');
 const users = require('./routes/users');
 const plants = require('./routes/plants');
+const usersplants = require('./routes/usersplants');
 const cors = require('cors');
 const jwtConfig = require('./authentication/jwtConfig');
 const jwt = require('jsonwebtoken');
@@ -43,9 +44,10 @@ app.post('/login', passport.authenticate('local-login'), (req, res) => {
         }
     )
 });
+
 app.post('/logout', (req, res) => {
     console.log('logout 1')
-    req.session = null;
+    
     return res.status(200).json([]);
     // req.session.destroy(function (err) {
     //     // res.redirect('/'); //Inside a callback… bulletproof!
@@ -74,8 +76,9 @@ app.get('/plant/:plant_id', function (req, res) {
     })
 });
 
-app.use('/user', passport.authenticate('local-login'), users);
-app.use('/plant', passport.authenticate('local-login'), plants);
+app.use('/:username', passport.authenticate('jwt'), usersplants);
+app.use('/user', passport.authenticate('jwt'), users);
+app.use('/plant', passport.authenticate('jwt'), plants);
 
 app.set('port', process.env.PORT || 5000);
 

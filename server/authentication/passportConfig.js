@@ -6,8 +6,6 @@ const LocalStrategy   = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
-
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {

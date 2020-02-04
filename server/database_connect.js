@@ -9,7 +9,8 @@ const options = {
     user: 'root',
     password: 'Tardy820!!',
     database: 'plantBarter_01',
-    host:   '127.0.0.1'
+    host:   '127.0.0.1',
+    multipleStatements: true
 }
 
 const connection = mysql.createConnection(options);
