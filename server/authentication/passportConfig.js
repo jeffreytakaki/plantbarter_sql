@@ -1,9 +1,10 @@
 const flash = require('express-flash-messages')
-const connection = require('../database_connect');				
-const LocalStrategy   = require('passport-local').Strategy;
+const connection = require('../database_connect');
 const pwHelpers = require('./encryptPassword');
-const User = require("../models/User");
-
+const jwtConfig = require('./jwtConfig');
+const LocalStrategy   = require('passport-local').Strategy;
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -55,7 +56,7 @@ module.exports = function(passport) {
         newUserMysql.email    = req.body.email;
         newUserMysql.password = await pwHelpers.encryptPassword(password); // use the generateHash function in our user model
 
-        let q = `INSERT users(first_name, last_name, email, user_name, password) VALUES ('${newUserMysql.first_name}', '${newUserMysql.last_name}', '${newUserMysql.email}', '${newUserMysql.username}', '${newUserMysql.password}');`;
+        let q = `INSERT users(first_name, last_name, email, username, password) VALUES ('${newUserMysql.first_name}', '${newUserMysql.last_name}', '${newUserMysql.email}', '${newUserMysql.username}', '${newUserMysql.password}');`;
         console.log('local sign up', q);
         connection.query(q, (error, results,field) => {
             if(error) {
@@ -91,17 +92,37 @@ module.exports = function(passport) {
             if(results.length) {
                 // Load hash from your password DB.
                 bcrypt.compare(req.body.password, results[0].password, function(err, res) {
-                    // res == true
+                    
                     if(res) return done(null,results[0]);
-                    console.log('req.session',req.session)
-                    req.session.user = {user_id: results[0].user_id};
-                    console.log('req.session',req.session)
-                    return done(null);
+                    
+                    return done(null, false);
                 });
             }
             
         });
 
     }));
+
+    // =========================================================================
+    // PASSPORT JWT =============================================================
+    // =========================================================================
+    var opts = {}
+    opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('JWT');
+    opts.secretOrKey = jwtConfig.secret;
+
+    passport.use('jwt', new JwtStrategy(opts, 
+        async function(jwt_payload, done) {
+            console.log('jwt', jwt_payload )
+            const q = `SELECT * FROM users WHERE users.username = '${jwt_payload.id}';`;
+            connection.query(q, (error, results) => {
+                if(error) return done(null, error);
+                
+                if(results.length) return done(null,results[0]);
+
+                return done(null, false);
+                
+            });
+        })
+    );
 
 };
