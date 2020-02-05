@@ -110,7 +110,6 @@ module.exports = function(passport) {
 
     passport.use('jwt', new JwtStrategy(opts, 
         async function(jwt_payload, done) {
-            console.log('jwt', jwt_payload )
             const q = `SELECT * FROM users WHERE users.username = '${jwt_payload.id}';`;
             connection.query(q, (error, results) => {
                 if(error) return done(null, error);

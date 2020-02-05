@@ -77,7 +77,7 @@ app.get('/plant/:plant_id', function (req, res) {
 });
 
 app.use('/:username', passport.authenticate('jwt'), usersplants);
-app.use('/user', passport.authenticate('jwt'), users);
+app.use('/users', passport.authenticate('jwt'), users);
 app.use('/plant', passport.authenticate('jwt'), plants);
 
 app.set('port', process.env.PORT || 5000);

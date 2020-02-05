@@ -33,22 +33,55 @@ router.post('/plant/add', function (req, res) {
         connection.query(q, (error, results) => {
             if(error) res.json(error);
 
+            let check = true;
             // add logic to check if plant assigned to user already
             results.forEach(value => {
-                console.log('value',value)
+                if( value.plant_id == req.body.plant_id) {
+                    check = false;
+                }
             })
-            
-            // if not, add the plant
-            connection.query(q, (error, results) => {
+            if(check) {
+                const insertQuery = `INSERT into users_plants (user_id, plant_id) VALUES (${user_id}, ${req.body.plant_id});`;
+                // if not, add the plant
+                connection.query(insertQuery, (error, results) => {
+                    console.log('error')
+                    if (error) res.json(error)
+                    res.json(results);
+                })
+            } else {
+                res.json({message: 'Plant already added to users list!'});
+            }
 
-            })
-            
-            res.json(results);    
         })
         
     })
 });
 
+
+// DELETE USER PLANT =============================================================
+router.delete('/plant', function (req, res) {
+    const getUserId = `SELECT user_id FROM users WHERE username = '${req.user.username}';`;
+    // get user id
+    connection.query(getUserId, (error, results) => {
+        if(error) res.json(error);
+        const user_id = results[0].user_id;
+        const q = `SELECT * FROM users_plants WHERE user_id = ${user_id};`;
+
+        // find all plants from user
+        connection.query(q, (error, results) => {
+            if(error) res.json(error);
+
+            const deleteQuery = `DELETE from users_plants WHERE user_id = ${user_id} AND plant_id = ${req.body.plant_id};`;
+            connection.query(deleteQuery, (error, results) => {
+                if(error) res.json(error);
+
+                res.json(results)
+
+            })
+
+        })
+    })
+});
 
 
 module.exports = router;
