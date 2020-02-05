@@ -3,8 +3,9 @@ import React from 'react';
 const Plant = props => {
     
     return (
-        <li id={props.plant.plant_id}>
-            {props.plant.name}
+        <li className='plant-card' id={props.plant.plant_id}>
+
+            <h4>{props.plant.name}</h4>
         </li>
     )
 }

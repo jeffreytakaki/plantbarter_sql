@@ -10,7 +10,7 @@ const Plant = require('../models/Plant');
 router.get('/findUser', function (req, res) {
     connection.query(`SELECT * FROM users WHERE users.user_id = ${req.user.user_id}`, (error, results) => {
         if (error) res.json(error);
-        res.json(results)
+        res.json({user: results})
     });
 });
 

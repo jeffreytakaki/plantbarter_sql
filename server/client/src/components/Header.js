@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import LoginFormConnected from './LoginForm';
 import RegisterFormConnected from './RegisterForm';
-import { logoutUser } from '../actions/userAction';
+import { logoutUser, findUser } from '../actions/userAction';
 import axios from 'axios';
 
 
@@ -14,7 +14,7 @@ class Header extends React.Component {
     }
 
     componentWillMount() {
-        
+        this.props.findUser()
     }
 
     async logout() {
@@ -33,7 +33,16 @@ class Header extends React.Component {
             )
             
         } else {
-            return <div className="section"><button onClick={this.logout}>logout</button></div>;
+            return (
+                <div>
+                    <div className="section">
+                        hi, {this.props.users.username}
+                    </div>     
+                    <div className="section">     
+                        <button onClick={this.logout}>logout</button>
+                    </div>
+                </div>
+            )
         }
     }
 
@@ -46,7 +55,6 @@ class Header extends React.Component {
             <header className="App-header">
                 <div className="section ">logo</div>
                 {this.handleUserState(this.props)}
-                {this.props.users.user_name}
             </header>
 
         )
@@ -54,6 +62,7 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log('state', state)
     return {
         users: state.users
     }
@@ -62,6 +71,9 @@ const mapDispatchToEvents = (dispatch) => {
     return {
         logout: (user) => {
             dispatch(logoutUser(user));
+        },
+        findUser: () => {
+            dispatch(findUser());
         }
     };
 };

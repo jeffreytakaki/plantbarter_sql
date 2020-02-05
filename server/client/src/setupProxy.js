@@ -10,6 +10,14 @@ module.exports = function(app) {
   );
 
   app.use(
+    '/users/findUser',
+    proxy({
+      target: 'http://localhost:5000',
+      changeOrigin: true,
+    })
+  );
+
+  app.use(
     '/login',
     proxy({
       target: 'http://localhost:5000',

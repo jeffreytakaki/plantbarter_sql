@@ -8,3 +8,26 @@
 .form-class label {
     margin: 10px 0;
 }
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.plant-collection ul {
+
+}
+
+.plant-collection ul li {
+    width: 200px;
+    height: 200px;
+    background-color: #ffc9b5;
+    border-radius: 7px;
+    margin: 5px;
+    padding: 10px 5px;
+    text-align: center;
+}

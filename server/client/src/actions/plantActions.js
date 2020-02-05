@@ -1,11 +1,9 @@
-import axios from 'axios';
 import { } from './types';
+import { instance } from './axiosHelper';
 
 export const getPlantsList = (plants) => {
     return async function(dispatch, getState) {
-        let response = await axios.get('/plants')
-
-        console.log('response', response)
+        let response = await instance.get('/plants')
 
         dispatch({type: "GET_PLANT_LIST", payload: response })
     }

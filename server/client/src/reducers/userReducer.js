@@ -13,13 +13,13 @@ const users = (state = {}, action) => {
             );
         
         case LOGIN_USER:
-            
+            const user = action.payload.data.user[0];
             return Object.assign({}, state, 
                 {
-                    user_name: action.payload.data.user_name,
-                    email: action.payload.data.email,
-                    first_name: action.payload.data.first_name,
-                    last_name: action.payload.data.last_name
+                    username: user.username,
+                    email: user.email,
+                    first_name: user.first_name,
+                    last_name: user.last_name
                 }
             );
 

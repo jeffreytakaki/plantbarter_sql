@@ -56,7 +56,7 @@ app.post('/logout', (req, res) => {
 });
 
 // get all plants
-app.get('/plants', passport.authenticate('jwt'), function (req, res) {
+app.get('/plants', function (req, res) {
     const q = `SELECT * FROM plants`;
     connection.query(q, (error, results) => {
         if (error) res.json(error);
