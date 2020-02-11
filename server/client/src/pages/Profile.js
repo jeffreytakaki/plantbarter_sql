@@ -16,11 +16,7 @@ class Profile extends React.Component {
                     <li><h1>hi, {this.props.users.username}</h1></li>
                     <li><Link to="/profile/edit">edit profile</Link></li>
                 </ul>
-                <UserPlantCollectionConnected />  
-                
-                
-                
-                
+                <UserPlantCollectionConnected />   
             </div>
             
 

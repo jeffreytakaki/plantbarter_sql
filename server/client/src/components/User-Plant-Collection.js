@@ -14,15 +14,20 @@ class UserPlantCollection extends React.Component {
 
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.props.getUserPlants()
     }
 
     render() {
-        let plantList = this.props.user_plants.map((plant, i) => {
-            return ( <Plant key={i} plant={plant} /> )
-        });
-    
+        let plantList;
+        if(this.props.user_plants) {
+            plantList = this.props.user_plants.map((plant, i) => {
+                return ( <Plant key={i} plant={plant} /> )
+            });
+        } else {
+            plantList = '';
+        }
+
         return (
             <div className="plant-collection">
                 <ul>
@@ -34,9 +39,8 @@ class UserPlantCollection extends React.Component {
 };
 
 const mapStateToProps = (state) => {
-    console.log('user plant state',state)
     return {
-        user_plants: state.userPlant
+        user_plants: state.userPlants
     }
 };
 

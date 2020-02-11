@@ -18,15 +18,7 @@ class PlantCollection extends React.Component {
     }
 
     componentWillMount() {
-        // console.log('store', store.getState())
-        // const instance = axios.create({
-        //     baseURL: '/',
-        //     timeout: 1000,
-        //     headers: {'X-Custom-Header': 'foobar'}
-        // });
-
         this.props.getPlants()
-
     }
 
     render() {
