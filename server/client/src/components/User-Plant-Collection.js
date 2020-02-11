@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Plant from './Plant';
-import { getUserPlantsList } from '../actions/user_plantActions';
+import { getUserPlantsList, deleteUserPlant } from '../actions/user_plantActions';
 
 
 class UserPlantCollection extends React.Component {
@@ -12,17 +12,24 @@ class UserPlantCollection extends React.Component {
             collection: []
         };
 
+        this.handleDelete = this.handleDelete.bind(this)
+
     }
 
     componentWillMount() {
         this.props.getUserPlants()
     }
 
+    handleDelete(event) {
+        console.log(event.target.id)
+        this.props.deleteUserPlant(event.target.id);
+    }
+
     render() {
         let plantList;
         if(this.props.user_plants) {
             plantList = this.props.user_plants.map((plant, i) => {
-                return ( <Plant key={i} plant={plant} /> )
+                return ( <Plant key={i} plant={plant} handleDelete={this.handleDelete} /> )
             });
         } else {
             plantList = '';
@@ -48,6 +55,9 @@ const mapDispatchToEvents = (dispatch) => {
     return {
         getUserPlants: () => {
             dispatch(getUserPlantsList());
+        },
+        deleteUserPlant: (id) => {
+            dispatch(deleteUserPlant(id));
         }
     };
 };

@@ -60,19 +60,18 @@ router.post('/plant/add', function (req, res) {
 
 
 // DELETE USER PLANT =============================================================
-router.delete('/plant', function (req, res) {
+router.delete('/plant/:plant_id', function (req, res) {
     const getUserId = `SELECT user_id FROM users WHERE username = '${req.user.username}';`;
     // get user id
     connection.query(getUserId, (error, results) => {
         if(error) res.json(error);
         const user_id = results[0].user_id;
         const q = `SELECT * FROM users_plants WHERE user_id = ${user_id};`;
-
         // find all plants from user
         connection.query(q, (error, results) => {
             if(error) res.json(error);
 
-            const deleteQuery = `DELETE from users_plants WHERE user_id = ${user_id} AND plant_id = ${req.body.plant_id};`;
+            const deleteQuery = `DELETE from users_plants WHERE user_id = ${user_id} AND plant_id = ${req.params.plant_id};`;
             connection.query(deleteQuery, (error, results) => {
                 if(error) res.json(error);
 
