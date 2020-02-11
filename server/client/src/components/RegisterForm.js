@@ -17,6 +17,10 @@ class RegisterForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount(props) {
+        this.setState({...this.props.users});
+    }
+
     handleChange(event) {
         this.setState({
             [event.target.name] : event.target.value
@@ -32,22 +36,23 @@ class RegisterForm extends React.Component {
         return (
 
             <div className="user-form-wrapper">
+                {this.state.users}
                 <form>
                     <div className="section">
                         <label>first name</label>
-                        <input type="text" name="first_name" onChange={this.handleChange} placeholder="first name" />
+                        <input type="text" name="first_name" onChange={this.handleChange} placeholder={this.props.users.first_name || 'first name'}></input>
                     </div>
                     <div className="section">
                         <label>last name</label>
-                        <input type="text" name="last_name" onChange={this.handleChange} placeholder="last name" />
+                        <input type="text" name="last_name" onChange={this.handleChange} placeholder={this.props.users.last_name || 'last name'} />
                     </div>
                     <div className="section">
                         <label>email</label>
-                        <input type="text" name="email" onChange={this.handleChange} placeholder="email" />
+                        <input type="text" name="email" onChange={this.handleChange} placeholder={this.props.users.email || 'email'} />
                     </div>
                     <div className="section">
                         <label>username</label>
-                        <input type="text" name="username" onChange={this.handleChange} placeholder="username" />
+                        <input type="text" name="username" onChange={this.handleChange} placeholder={this.props.users.username || 'username'} />
                     </div>
                     <div className="section">
                         <label>password</label>
@@ -65,7 +70,7 @@ class RegisterForm extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        state
+        users: state.users
     }
 };
 

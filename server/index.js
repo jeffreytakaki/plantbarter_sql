@@ -76,7 +76,7 @@ app.get('/plant/:plant_id', function (req, res) {
     })
 });
 
-app.use('/:username', passport.authenticate('jwt'), usersplants);
+app.use('/profile', passport.authenticate('jwt'), usersplants);
 app.use('/users', passport.authenticate('jwt'), users);
 app.use('/plant', passport.authenticate('jwt'), plants);
 

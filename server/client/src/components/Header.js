@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import LoginFormConnected from './LoginForm';
 import RegisterFormConnected from './RegisterForm';
 import { logoutUser, findUser } from '../actions/userAction';
-import axios from 'axios';
+import { Link } from "react-router-dom";
 
 
 class Header extends React.Component {
@@ -46,15 +46,24 @@ class Header extends React.Component {
         }
     }
 
-    render() {
-        console.log('this', this)
-        
+    render() {   
 
         return (
 
             <header className="App-header">
                 <div className="section ">logo</div>
                 {this.handleUserState(this.props)}
+                <ul>
+                    <li>
+                        <Link to="/home">Home</Link>
+                    </li>
+                    <li>
+                        <Link to="/profile">profile</Link>
+                    </li>
+                    <li>
+                        <Link to="/plant-collection">Collection</Link>
+                    </li>
+                </ul>
             </header>
 
         )
@@ -62,7 +71,7 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log('state', state)
+    // console.log('state', state)
     return {
         users: state.users
     }

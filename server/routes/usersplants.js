@@ -7,6 +7,7 @@ const Plant = require('../models/Plant');
 
 // GET USER PLANTS =============================================================
 router.get('/plants', function (req, res) {
+    console.log('req.user', req.user.username)
     const getUserId = `SELECT user_id FROM users WHERE username = '${req.user.username}';`;
     
     connection.query(getUserId, (error, results) => {

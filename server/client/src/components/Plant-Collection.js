@@ -36,7 +36,7 @@ class PlantCollection extends React.Component {
             <Plant key={i} plant={plant} />
             )
         });
-// console.log('this.props', this.props)
+
         return (
             <div className="plant-collection">
                 <ul>
