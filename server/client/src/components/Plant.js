@@ -1,27 +1,11 @@
 import React from 'react';
 
-export default class Plant extends React.Component {
-    constructor(props) {
-        super(props);
-        this.props = props;
-    }
+export const Plant = props => {
     
-    render() {
-        // let deletebutton = () => {
-        //     if (this.props.handleDelete) {
-        //         return (<div className='delete-card' onClick={this.props.handleDelete}>X</div>)
-        //     }
-    
-        //     return false;
-        // }
-
-        let deletebutton = (this.props.handleDelete) ? <div className='delete-card' onClick={this.props.handleDelete}>X</div> : false;
-        return (
-            <li className='plant-card' id={this.props.plant.plant_id}>
-                {deletebutton}
-                <h4>{this.props.plant.name}</h4>
-            </li>
-        )
-    }
+    return (
+        <li className='plant-card' id={props.plant.plant_id}>
+             <div className='delete-card' onClick={props.handleDelete}>X</div>
+            <h4>{props.plant.name}</h4>
+        </li>
+    )
 }
-

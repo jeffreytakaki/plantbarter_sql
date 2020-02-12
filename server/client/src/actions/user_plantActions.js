@@ -16,6 +16,8 @@ export const deleteUserPlant = (plant_id) => {
             console.log('error', response.data.code)
         }
         console.log('response delete', response)
-        dispatch({type: "DELETE_USER_PLANT_LIST", payload: response })
+        dispatch({type: "DELETE_USER_PLANT_LIST", payload: response})
+
+        // {response: 1 or 0, plant_id: id of plant}
     }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import Plant from './Plant';
+import {Plant} from './Plant';
 import axios from 'axios';
 import { combineReducers } from 'redux';
 import { connect } from 'react-redux';

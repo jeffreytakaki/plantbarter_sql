@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Plant from './Plant';
+import {Plant} from './Plant';
 import { getUserPlantsList, deleteUserPlant } from '../actions/user_plantActions';
 
 
@@ -21,8 +21,7 @@ class UserPlantCollection extends React.Component {
     }
 
     handleDelete(event) {
-        console.log(event.target.id)
-        this.props.deleteUserPlant(event.target.id);
+        this.props.deleteUserPlant(event.target.parentNode.id);
     }
 
     render() {
@@ -46,6 +45,7 @@ class UserPlantCollection extends React.Component {
 };
 
 const mapStateToProps = (state) => {
+    console.log('state', state)
     return {
         user_plants: state.userPlants
     }
