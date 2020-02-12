@@ -47,7 +47,15 @@ router.post('/plant/add', function (req, res) {
                 connection.query(insertQuery, (error, results) => {
                     console.log('error')
                     if (error) res.json(error)
-                    res.json(results);
+                    
+                    // now retrieve the plant and send it back to the client
+                    const getPlantQuery = `SELECT * FROM plants WHERE plant_id=${req.body.plant_id};`
+                    connection.query(getPlantQuery, (error, results) => {
+                        console.log('error')
+                        if (error) res.json(error)
+                        res.json(results);
+                    })
+
                 })
             } else {
                 res.json({message: 'Plant already added to users list!'});

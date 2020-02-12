@@ -5,6 +5,7 @@ import { combineReducers } from 'redux';
 import { connect } from 'react-redux';
 import store from '../store';
 import {getPlantsList} from '../actions/plantActions';
+import {createUserPlant} from '../actions/user_plantActions';
 
 
 class PlantCollection extends React.Component {
@@ -15,17 +16,25 @@ class PlantCollection extends React.Component {
             collection: []
         };
 
+        this.handleAddPlant = this.handleAddPlant.bind(this);
     }
 
     componentWillMount() {
         this.props.getPlants()
     }
 
+    handleAddPlant(event) {
+        
+        const plant_id = event.target.parentNode.id;
+        console.log('plant_id', plant_id)
+        this.props.addUserPlant(plant_id);
+    }
+
     render() {
 
         let plantList = this.props.plants.map((plant, i) => {
             return (
-            <Plant key={i} plant={plant} />
+            <Plant key={i} plant={plant} handleAddPlant={this.handleAddPlant}/>
             )
         });
 
@@ -43,6 +52,9 @@ const mapDispatchToEvents = (dispatch) => {
     return {
         getPlants: (plants) => {
             dispatch(getPlantsList(plants));
+        },
+        addUserPlant: (plant_id) => {
+            dispatch(createUserPlant(plant_id));
         }
     };
 };
