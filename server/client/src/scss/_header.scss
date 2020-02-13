@@ -1,0 +1,14 @@
+@import './variables';
+
+header {
+    display: flex;
+
+    .logo-container {
+        width: 100%;
+        text-align: center;
+    }
+
+    @media (min-width: $breakpoint-tablet) {
+  
+    }
+}

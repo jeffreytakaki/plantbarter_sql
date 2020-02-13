@@ -1,13 +1,8 @@
+
+@import './header';
+
 html, body {
     background-color: #E2EB98 !important;
-}
-
-header {
-    display: flex;
-}
-
-header .logo-container {
-    
 }
 
 .form-class {
@@ -15,10 +10,9 @@ header .logo-container {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-}
-
-.form-class label {
-    margin: 10px 0;
+    label {
+        margin: 10px 0;
+    }
 }
 
 ul {

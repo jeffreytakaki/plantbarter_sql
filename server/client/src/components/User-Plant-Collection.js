@@ -21,7 +21,7 @@ class UserPlantCollection extends React.Component {
     }
 
     handleDelete(event) {
-        this.props.deleteUserPlant(event.target.parentNode.id);
+        this.props.deleteUserPlant(event.target.parentNode.parentNode.id);
     }
 
     render() {

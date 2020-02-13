@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './scss/App.scss';
 import HeaderConnected from './components/Header';
 import Home from './pages/Home'
 import ProfileConnected from './pages/Profile'
@@ -11,12 +11,9 @@ import {Provider} from 'react-redux';
 import store from './store';
 import {
     BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
+    Route
   } from "react-router-dom";
 import RegisterFormConnected from './components/RegisterForm';
-
 
 function App() {
     return (
@@ -42,10 +39,9 @@ function App() {
                     <Route path='/account'>
                         <LoginSignupContainer />
                     </Route>
-
-                    
                 </Router>
             </div>
+
         </Provider>
     );
 }

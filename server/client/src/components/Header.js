@@ -55,8 +55,8 @@ class Header extends React.Component {
         return (
 
             <header className="App-header">
-                <div className="section ">logo</div>
-                <div className="section "><Link to="/home">Home</Link></div>
+                <div className="section logo-container">logo</div>
+                <div className="section"><Link to="/home">Home</Link></div>
 
                 {this.handleUserState(this.props)}
 
