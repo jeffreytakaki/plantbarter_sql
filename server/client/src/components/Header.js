@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import LoginFormConnected from './LoginForm';
-import RegisterFormConnected from './RegisterForm';
 import { logoutUser, findUser } from '../actions/userAction';
 import { Link } from "react-router-dom";
 
@@ -26,21 +24,27 @@ class Header extends React.Component {
         const user = Object.keys(this.props.users).length === 0 && this.props.users.constructor === Object
         if (user) {
             return (
-                <div>
-                    <div className="section"><LoginFormConnected /></div>
-                    <div className="section"><RegisterFormConnected /></div>
+                <div className="section">
+                    <Link to="/account">Login/Signup</Link>
                 </div>
             )
             
         } else {
             return (
-                <div>
+                <div className="section">
                     <div className="section">
                         hi, {this.props.users.username}
                     </div>     
                     <div className="section">     
+                        <Link to="/plant-collection">collection</Link>
+                    </div>
+                    <div className="section">     
+                        <Link to="/profile">profile</Link>
+                    </div>
+                    <div className="section">     
                         <button onClick={this.logout}>logout</button>
                     </div>
+                    
                 </div>
             )
         }
@@ -52,18 +56,11 @@ class Header extends React.Component {
 
             <header className="App-header">
                 <div className="section ">logo</div>
+                <div className="section "><Link to="/home">Home</Link></div>
+
                 {this.handleUserState(this.props)}
-                <ul>
-                    <li>
-                        <Link to="/home">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/profile">profile</Link>
-                    </li>
-                    <li>
-                        <Link to="/plant-collection">Collection</Link>
-                    </li>
-                </ul>
+
+
             </header>
 
         )

@@ -1,36 +1,31 @@
 import { } from './types';
-import { instance } from './axiosHelper';
+import axios from 'axios';
+import { config } from './axiosHelper';
 
 export const getUserPlantsList = (plants) => {
     return async function(dispatch, getState) {
-        let response = await instance.get('/profile/plants')
+        let response = await axios.get('/profile/plants', config);
         dispatch({type: "GET_USER_PLANT_LIST", payload: response })
     }
 }
 
 export const deleteUserPlant = (plant_id) => {
     return async function(dispatch, getState) {
-        console.log('plant id', plant_id)
-        let response = await instance.delete(`/profile/plant/${plant_id}`)
+        let response = await axios.delete(`/profile/plant/${plant_id}`, config)
         if(response.data.code == "ER_BAD_FIELD_ERROR") {
             console.log('error', response.data.code)
         }
         dispatch({type: "DELETE_USER_PLANT_LIST", payload: response})
-
-        // {response: 1 or 0, plant_id: id of plant}
     }
 }
 
 export const createUserPlant = (plant_id) => {
     return async function(dispatch, getState) {
-        console.log('plant id', plant_id)
-        let response = await instance.post(`/profile/plant/add`, {plant_id})
-        if(response.data.code == "ER_BAD_FIELD_ERROR") {
-            console.log('error', response.data.code)
+        let response = await axios.post(`/profile/plant/add`, {plant_id}, config)
+        if(response.data.statusCode == 500) {
+            console.log('error', response.data.message)
+            return false;
         }
-        console.log('response create user plant', response)
         dispatch({type: "CREATE_USER_PLANT_LIST", payload: response})
-
-        
     }
 }

@@ -6,7 +6,7 @@ const userPlants = (state = [], action) => {
             return action.payload.data;
 
         case 'CREATE_USER_PLANT_LIST':
-            state.unshift(action.payload.data[0])
+            state.unshift(action.payload.data.results[0])
             return state;
     
         case 'DELETE_USER_PLANT_LIST':            

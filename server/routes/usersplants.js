@@ -53,12 +53,12 @@ router.post('/plant/add', function (req, res) {
                     connection.query(getPlantQuery, (error, results) => {
                         console.log('error')
                         if (error) res.json(error)
-                        res.json(results);
+                        res.json({statusCode: 200, results});
                     })
 
                 })
             } else {
-                res.json({message: 'Plant already added to users list!'});
+                res.json({statusCode: 500, message: 'Plant already added to users list!'});
             }
 
         })

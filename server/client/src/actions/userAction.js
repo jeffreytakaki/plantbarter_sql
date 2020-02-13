@@ -1,25 +1,26 @@
 import axios from 'axios';
 import { LOGIN_USER, CREATE_USER, LOGOUT_USER } from './types';
-import {instance} from './axiosHelper';
-
+import { config } from './axiosHelper';
 
 export const findUser = () => {
     return async function(dispatch, getState) {
-        let response = await instance.get('/users/findUser');
+        try {
+            let response = await axios.get('/users/findUser', config);
+            console.log('response', response)
+            let userobj = response.data.user[0];
+            dispatch({type: LOGIN_USER, payload: response.data.user[0] })
+        } catch {
+            console.log('user not logged in')
+        }
         
-        dispatch({type: LOGIN_USER, payload: response })
     }
 }
 
 export const loginUser = (user) => {
     return async function(dispatch, getState) {
-        console.log('user', user)
-        // // perform api call here:
-        let response = await instance.post('/login', user);
-        console.log('response', response)
-        localStorage.setItem('plantToken', response.data.token)
-
-        dispatch({type: LOGIN_USER, payload: response })
+        let response = await axios.post('/login', user);
+        localStorage.setItem('plantToken', response.data.token);
+        dispatch({type: LOGIN_USER, payload: response.data.user })
     }
 }
 
@@ -35,7 +36,7 @@ export function registerUser(user) {
     return async function(dispatch, getState) {
         console.log('user', user)
         // // perform api call here:
-        let response = await instance.post('/signup', user);
+        let response = await axios.post('/signup', user);
         console.log('response', response)
 
         dispatch({type: CREATE_USER, payload: response })

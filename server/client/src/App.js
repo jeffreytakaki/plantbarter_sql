@@ -5,7 +5,8 @@ import HeaderConnected from './components/Header';
 import Home from './pages/Home'
 import ProfileConnected from './pages/Profile'
 import PlantCollection from './components/Plant-Collection';
-import PlantForm from './components/Plant-Form'
+import PlantForm from './components/Plant-Form';
+import LoginSignupContainer from './pages/LoginSignupContainer';
 import {Provider} from 'react-redux';
 import store from './store';
 import {
@@ -32,13 +33,16 @@ function App() {
                     <Route path='/profile/edit'>
                         <RegisterFormConnected />
                     </Route>
-                    
                     <Route path='/plantform'>
                         <PlantForm />
                     </Route>
                     <Route path='/plant-collection'>
                         <PlantCollection />
                     </Route>
+                    <Route path='/account'>
+                        <LoginSignupContainer />
+                    </Route>
+
                     
                 </Router>
             </div>

@@ -13,7 +13,10 @@ const users = (state = {}, action) => {
             );
         
         case LOGIN_USER:
-            const user = action.payload.data.user[0];
+            console.log('user', action.payload)
+            const user = action.payload;
+            
+
             return Object.assign({}, state, 
                 {
                     username: user.username,
