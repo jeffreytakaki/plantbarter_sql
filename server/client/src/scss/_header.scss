@@ -2,12 +2,24 @@
 
 header {
     display: flex;
-
+    position: relative;
+    
     .logo-container {
         width: 100%;
         text-align: center;
     }
-
+    .hamburger-menu-icon {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .bm-overlay {
+        background: rgba(246, 242, 199, .9) !important;
+    }
+    .bm-item.section {
+        margin: 10% 5%;
+        font-size: 1.25em;
+    }
     @media (min-width: $breakpoint-tablet) {
   
     }

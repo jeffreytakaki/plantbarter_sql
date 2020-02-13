@@ -1,12 +1,8 @@
 import React from 'react';
 import {Plant} from './Plant';
-import axios from 'axios';
-import { combineReducers } from 'redux';
 import { connect } from 'react-redux';
-import store from '../store';
 import {getPlantsList} from '../actions/plantActions';
 import {createUserPlant} from '../actions/user_plantActions';
-
 
 class PlantCollection extends React.Component {
     constructor() {

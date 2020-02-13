@@ -4,6 +4,7 @@ import { config } from './axiosHelper';
 
 export const getUserPlantsList = (plants) => {
     return async function(dispatch, getState) {
+        console.log('config', config)
         let response = await axios.get('/profile/plants', config);
         dispatch({type: "GET_USER_PLANT_LIST", payload: response })
     }
