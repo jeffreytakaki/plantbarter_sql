@@ -19,24 +19,26 @@ class App extends React.Component {
                 <div className="page-container">
                     <Router>
                         <HeaderConnected />
-                        <Route path='/home'>
-                            <Home />
-                        </Route>
-                        <Route path='/profile'>
-                            <ProfileConnected />
-                        </Route>
-                        <Route path='/profile/edit'>
-                            <RegisterFormConnected />
-                        </Route>
-                        <Route path='/plantform'>
-                            <PlantForm />
-                        </Route>
-                        <Route path='/plant-collection'>
-                            <PlantCollection />
-                        </Route>
-                        <Route path='/account'>
-                            <LoginSignupContainer />
-                        </Route>
+                        <div className='content-body'>
+                            <Route path='/home'>
+                                <Home />
+                            </Route>
+                            <Route path='/profile'>
+                                <ProfileConnected />
+                            </Route>
+                            <Route path='/profile/edit'>
+                                <RegisterFormConnected />
+                            </Route>
+                            <Route path='/plantform'>
+                                <PlantForm />
+                            </Route>
+                            <Route path='/plant-collection'>
+                                <PlantCollection />
+                            </Route>
+                            <Route path='/account'>
+                                <LoginSignupContainer />
+                            </Route>
+                        </div>
                     </Router>
                 </div>
             </Provider>

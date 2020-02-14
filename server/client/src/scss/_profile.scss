@@ -1,0 +1,10 @@
+ul.profile-greeting {
+    display: flex;
+    justify-content: center;
+    .profile-header {
+        margin-right: 1%;
+    }
+    svg {
+        color: #73E2A7;
+    }
+}
