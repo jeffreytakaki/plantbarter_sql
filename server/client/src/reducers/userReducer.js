@@ -13,7 +13,7 @@ const users = (state = {}, action) => {
             );
         
         case LOGIN_USER:
-            console.log('user', action.payload)
+            
             const user = action.payload;
             
 

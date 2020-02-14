@@ -3,6 +3,8 @@ import {Plant} from './Plant';
 import { connect } from 'react-redux';
 import {getPlantsList} from '../actions/plantActions';
 import {createUserPlant} from '../actions/user_plantActions';
+import Search from './Search';
+
 
 class PlantCollection extends React.Component {
     constructor() {
@@ -34,6 +36,7 @@ class PlantCollection extends React.Component {
 
         return (
             <div className="plant-collection">
+                <Search list={this.props.plants}/>
                 <ul>
                     { plantList }
                 </ul>
