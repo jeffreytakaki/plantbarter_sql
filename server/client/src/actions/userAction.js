@@ -10,8 +10,7 @@ export const findUser = () => {
             dispatch({type: LOGIN_USER, payload: response.data.user[0] })
         } catch {
             console.log('user not logged in')
-        }
-        
+        }   
     }
 }
 
