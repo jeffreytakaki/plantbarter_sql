@@ -1,15 +1,15 @@
 const mysql = require('mysql');
 const fs = require('fs');
 const path = require('path');
-const userModel = require('./models/User');
-const plantModel = require('./models/Plant');
 
 // https://flaviocopes.com/node-mysql/
+//  update these to eventually use process.env variables. 
+console.log('process.env', process.env)
 const options = {
-    user: 'root',
-    password: 'Tardy820!!',
-    database: 'plantBarter_01',
-    host:   '127.0.0.1',
+    user: process.env.DATABASE_USERNAME,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
+    host: process.env.DATABASE_HOST,
     multipleStatements: true
 }
 

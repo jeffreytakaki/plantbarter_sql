@@ -1,5 +1,5 @@
 const flash = require('express-flash-messages')
-const connection = require('../database_connect');
+const connection = require('../database/database_connect');
 const pwHelpers = require('./encryptPassword');
 const jwtConfig = require('./jwtConfig');
 const LocalStrategy   = require('passport-local').Strategy;

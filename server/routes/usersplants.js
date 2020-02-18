@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
-const connection = require('../database_connect');
-const User = require("../models/User");
-const Plant = require('../models/Plant');
+const connection = require('../database/database_connect');
 
 // GET USER PLANTS =============================================================
 router.get('/plants', function (req, res) {

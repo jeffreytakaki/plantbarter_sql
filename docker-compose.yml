@@ -1,0 +1,30 @@
+version: '3'
+  services:
+    node:
+      build: ./server
+      ports:
+        - "5000:8080"
+      depends_on:
+        - db
+      networks:
+        - backend
+      environment:
+        - PORT=5000
+        - DATABASE_HOST=${DATABASE_HOST}
+        - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+        - DATABASE_SERVER_ENV=${DATABASE_SERVER_ENV}
+        - NODE_ENV=${NODE_ENV}
+      # command: ["./wait-for-it.sh", "db:3306", "--", "npm run docker"]
+    db:
+      build: ./server/db
+      networks:
+        - backend
+      environment:
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+        - MYSQL_USER=${MYSQL_DATABASE}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+
+  networks:
+    backend:
+      driver: bridge

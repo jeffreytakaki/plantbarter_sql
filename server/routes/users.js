@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const connection = require('../database_connect');
-const User = require("../models/User");
-const Plant = require('../models/Plant');
+const connection = require('../database/database_connect');
 
 // GET USER =============================================================
 // we use post here because we need to pass it email/pw, which later should be salted/jwt. maybe thru cookie values
