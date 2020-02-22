@@ -1,3 +1,6 @@
+#exclude the docker volume
+data
+
 # Logs
 logs
 *.log
