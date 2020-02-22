@@ -3,7 +3,7 @@ const passport = require('passport');
 const path = require('path');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
-const connection = require('./database/database_connect');
+const connection = require('./database_connect');
 const passportConfig = require('./authentication/passportConfig');
 const bodyParser = require('body-parser');
 const users = require('./routes/users');
@@ -12,6 +12,7 @@ const usersplants = require('./routes/usersplants');
 const cors = require('cors');
 const jwtConfig = require('./authentication/jwtConfig');
 const jwt = require('jsonwebtoken');
+const root = require('path').join(__dirname, 'client', 'build')
 
 // create our Express app
 const app = express();
@@ -25,8 +26,10 @@ app.use(bodyParser.urlencoded({ // Takes the raw requests and turns them into us
 }));
 app.use(bodyParser.json());
 
-passportConfig(passport); //get local strategies from passport
 
+app.use(express.static(root));
+
+passportConfig(passport); //get local strategies from passport
 app.use(passport.initialize());
 app.use(passport.session());
 

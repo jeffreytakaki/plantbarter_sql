@@ -1,3 +1,6 @@
+# docker volume
+data
+
 # Logs
 logs
 *.log

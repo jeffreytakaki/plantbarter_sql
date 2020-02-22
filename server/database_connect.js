@@ -4,12 +4,15 @@ const path = require('path');
 
 // https://flaviocopes.com/node-mysql/
 //  update these to eventually use process.env variables. 
+
 console.log('process.env', process.env)
+
 const options = {
-    user: process.env.DATABASE_USERNAME,
+    user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
+    database: process.env.DATABASE_TABLE,
     host: process.env.DATABASE_HOST,
+    port: process.env.MYSQLPORT,
     multipleStatements: true
 }
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const connection = require('../database/database_connect');
+const connection = require('../database_connect');
 const passport = require('passport');
 const Plant = require("../models/Plant");
 
