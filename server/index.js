@@ -6,13 +6,12 @@ const cookieParser = require('cookie-parser');
 const connection = require('./database_connect');
 const passportConfig = require('./authentication/passportConfig');
 const bodyParser = require('body-parser');
-const users = require('./routes/users');
+const users = require('./routes/users');    
 const plants = require('./routes/plants');
 const usersplants = require('./routes/usersplants');
 const cors = require('cors');
 const jwtConfig = require('./authentication/jwtConfig');
 const jwt = require('jsonwebtoken');
-const root = require('path').join(__dirname, 'client', 'build')
 
 // create our Express app
 const app = express();
@@ -25,9 +24,6 @@ app.use(bodyParser.urlencoded({ // Takes the raw requests and turns them into us
 	extended: true
 }));
 app.use(bodyParser.json());
-
-
-app.use(express.static(root));
 
 passportConfig(passport); //get local strategies from passport
 app.use(passport.initialize());
@@ -49,13 +45,7 @@ app.post('/login', passport.authenticate('local-login'), (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-    console.log('logout 1')
-    
-    return res.status(200).json([]);
-    // req.session.destroy(function (err) {
-    //     // res.redirect('/'); //Inside a callback… bulletproof!
-    //     return res.status(200).json({status:'success'});
-    //   });
+    res.status(200).json([]);
 });
 
 // get all plants
@@ -82,6 +72,16 @@ app.get('/plant/:plant_id', function (req, res) {
 app.use('/profile', passport.authenticate('jwt'), usersplants);
 app.use('/users', passport.authenticate('jwt'), users);
 app.use('/plant', passport.authenticate('jwt'), plants);
+
+if (process.env.NODE_ENV === 'production') {
+    // Serve any static files
+    app.use(express.static(path.join(__dirname, 'client/build')));
+
+    // Handle React routing, return all requests to React app
+    app.get('*', function(req, res) {
+        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    });
+}
 
 app.set('port', process.env.PORT || 5000);
 

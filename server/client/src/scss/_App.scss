@@ -1,0 +1,26 @@
+    
+@import './header';
+@import './profile';
+@import './plant-collection';
+@import './plant';
+
+.content-body {
+    padding: 2%;
+}
+
+.form-class {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    label {
+        margin: 10px 0;
+    }
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+

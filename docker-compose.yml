@@ -17,15 +17,8 @@ services:
         DATABASE_USER: root
         DATABASE_PASSWORD: password
         DATABASE_TABLE: plantbarter
+        NODE_ENV: production
         
-    # db:
-    #   image: mysql:5.7
-    #   command: --default-authentication-plugin=mysql_native_password
-    #   restart: always
-    #   networks:
-    #     - backend
-    #   environment:
-    #     MYSQL_ROOT_PASSWORD: password
     db: 
         container_name: db
         build: ./server/database
