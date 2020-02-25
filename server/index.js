@@ -25,8 +25,10 @@ app.use(bodyParser.urlencoded({ // Takes the raw requests and turns them into us
 }));
 app.use(bodyParser.json());
 
-// Serve any static files, like build/static css and js files in CRA
-app.use(express.static(path.join(__dirname, 'client/build')));
+if (process.env.NODE_ENV == 'production') {
+    // Serve any static files, like build/static css and js files in CRA
+    app.use(express.static(path.join(__dirname, 'client/build')));
+}
 
 // Handle the other passport stuff
 passportConfig(passport); //get local strategies from passport
@@ -74,10 +76,12 @@ app.use('/api/v1/profile', passport.authenticate('jwt'), usersplants);
 app.use('/api/v1/users', passport.authenticate('jwt'), users);
 app.use('/api/v1/plant', passport.authenticate('jwt'), plants);
 
-// Handles any requests that don't match the ones above
-app.get('*', (req,res) =>{
-    res.sendFile(path.join(__dirname+'/client/build/index.html'));
-});
+if (process.env.NODE_ENV == 'production') {
+    // Handles any requests that don't match the ones above
+    app.get('*', (req,res) =>{
+        res.sendFile(path.join(__dirname+'/client/build/index.html'));
+    });
+}
 
 app.set('port', process.env.PORT || 5000);
 
