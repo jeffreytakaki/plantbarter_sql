@@ -10,6 +10,7 @@ class LoginForm extends React.Component {
             password: ''
         }
 
+        this.loginRedirect = this.loginRedirect.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -25,7 +26,33 @@ class LoginForm extends React.Component {
         this.props.login(this.state)
     }
 
+    loginRedirect() {
+
+        // this.context.router.push('/newPath');
+        // let history = useHistory();
+        // let location = useLocation();
+
+        // console.log('location', location.state)
+      
+        // let { from } = location.state || { from: { pathname: "/" } };
+        // let login = () => {
+        //   fakeAuth.authenticate(() => {
+        //     history.replace(from);
+        //   });
+        // };
+      
+        // return (
+        //   <div>
+        //     <p>You must log in to view the page at {from.pathname}</p>
+        //     <button onClick={login}>Log in</button>
+        //   </div>
+        // );
+    }
+
     render() {
+
+        if (this.props['users']) this.loginRedirect();
+
         return (
 
             <div className="user-form-wrapper">

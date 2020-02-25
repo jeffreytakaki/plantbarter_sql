@@ -1,6 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
-import './scss/App.scss';
 import HeaderConnected from './components/Header';
 import Home from './pages/Home'
 import ProfileConnected from './pages/Profile'
@@ -20,6 +18,9 @@ class App extends React.Component {
                     <Router>
                         <HeaderConnected />
                         <div className='content-body'>
+                            <Route path='/'>
+                                <Home />
+                            </Route>
                             <Route path='/home'>
                                 <Home />
                             </Route>

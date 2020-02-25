@@ -5,7 +5,7 @@ import { config } from './axiosHelper';
 export const findUser = () => {
     return async function(dispatch, getState) {
         try {
-            let response = await axios.get('/users/findUser', config);
+            let response = await axios.get('/api/v1/users/findUser', config);
             console.log('response', response)
             let userobj = response.data.user[0];
             dispatch({type: LOGIN_USER, payload: response.data.user[0] })
@@ -29,6 +29,8 @@ export const logoutUser = (user) => {
         // // perform api call here:
         localStorage.removeItem('plantToken');
         dispatch({type: LOGOUT_USER, payload: [] })
+
+        window.location.pathname = '/'
     }
 }
 

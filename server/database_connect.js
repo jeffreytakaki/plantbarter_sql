@@ -7,7 +7,7 @@ const plantModel = require('./models/Plant');
 // https://flaviocopes.com/node-mysql/
 const options = {
     user: 'root',
-    password: 'Tardy820!!',
+    password: 'YOURSUPERSECRETPASSWORD',
     database: 'plantBarter_01',
     host:   '127.0.0.1',
     multipleStatements: true

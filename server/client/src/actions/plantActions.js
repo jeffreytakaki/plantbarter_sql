@@ -4,7 +4,7 @@ import { config } from './axiosHelper';
 
 export const getPlantsList = (plants) => {
     return async function(dispatch, getState) {
-        let response = await axios.get('/plants', config)
+        let response = await axios.get('/api/v1/plants', config)
 
         dispatch({type: "GET_PLANT_LIST", payload: response })
     }

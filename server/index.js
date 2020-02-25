@@ -25,8 +25,11 @@ app.use(bodyParser.urlencoded({ // Takes the raw requests and turns them into us
 }));
 app.use(bodyParser.json());
 
-passportConfig(passport); //get local strategies from passport
+// Serve any static files, like build/static css and js files in CRA
+app.use(express.static(path.join(__dirname, 'client/build')));
 
+// Handle the other passport stuff
+passportConfig(passport); //get local strategies from passport
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -46,17 +49,11 @@ app.post('/login', passport.authenticate('local-login'), (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-    console.log('logout 1')
-    
-    return res.status(200).json([]);
-    // req.session.destroy(function (err) {
-    //     // res.redirect('/'); //Inside a callback… bulletproof!
-    //     return res.status(200).json({status:'success'});
-    //   });
+    res.redirect(301, '/')
 });
 
 // get all plants
-app.get('/plants', function (req, res) {
+app.get('/api/v1/plants', function (req, res) {
     const q = `SELECT * FROM plants`;
     connection.query(q, (error, results) => {
         if (error) res.json(error);
@@ -65,20 +62,22 @@ app.get('/plants', function (req, res) {
 });
 
 // get plant
-app.get('/plant/:plant_id', function (req, res) {
-    console.log('req.params', req.params)
+app.get('/api/v1/plant/:plant_id', function (req, res) {
     const q = `SELECT * FROM plants WHERE plant_id = ${req.params.plant_id};`;
- 
     connection.query(q, (error, results) => {
         if (error) res.json(error);
-
         res.json(results);
     })
 });
 
-app.use('/profile', passport.authenticate('jwt'), usersplants);
-app.use('/users', passport.authenticate('jwt'), users);
-app.use('/plant', passport.authenticate('jwt'), plants);
+app.use('/api/v1/profile', passport.authenticate('jwt'), usersplants);
+app.use('/api/v1/users', passport.authenticate('jwt'), users);
+app.use('/api/v1/plant', passport.authenticate('jwt'), plants);
+
+// Handles any requests that don't match the ones above
+app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
 
 app.set('port', process.env.PORT || 5000);
 
