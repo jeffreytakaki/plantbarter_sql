@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Plant} from './Plant';
+import { PlantCard } from './Plant-Card';
 import { getUserPlantsList, deleteUserPlant } from '../actions/user_plantActions';
 
 
@@ -28,7 +28,7 @@ class UserPlantCollection extends React.Component {
         let plantList;
         if(this.props.user_plants) {
             plantList = this.props.user_plants.map((plant, i) => {
-                return ( <Plant key={i} plant={plant} handleDelete={this.handleDelete} /> )
+                return ( <PlantCard key={i} plant={plant} handleDelete={this.handleDelete} /> )
             });
         } else {
             plantList = '';

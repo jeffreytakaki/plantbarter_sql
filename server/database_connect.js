@@ -1,14 +1,12 @@
 const mysql = require('mysql');
 const fs = require('fs');
 const path = require('path');
-const userModel = require('./models/User');
-const plantModel = require('./models/Plant');
 
 // https://flaviocopes.com/node-mysql/
 const options = {
     user: 'root',
     password: 'YOURSUPERSECRETPASSWORD',
-    database: 'plantBarter_01',
+    database: 'plantBarter_05',
     host:   '127.0.0.1',
     multipleStatements: true
 }

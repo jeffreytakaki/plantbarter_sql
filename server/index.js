@@ -54,27 +54,9 @@ app.post('/logout', (req, res) => {
     res.redirect(301, '/')
 });
 
-// get all plants
-app.get('/api/v1/plants', function (req, res) {
-    const q = `SELECT * FROM plants`;
-    connection.query(q, (error, results) => {
-        if (error) res.json(error);
-        res.json(results);
-    })
-});
-
-// get plant
-app.get('/api/v1/plant/:plant_id', function (req, res) {
-    const q = `SELECT * FROM plants WHERE plant_id = ${req.params.plant_id};`;
-    connection.query(q, (error, results) => {
-        if (error) res.json(error);
-        res.json(results);
-    })
-});
-
 app.use('/api/v1/profile', passport.authenticate('jwt'), usersplants);
 app.use('/api/v1/users', passport.authenticate('jwt'), users);
-app.use('/api/v1/plant', passport.authenticate('jwt'), plants);
+app.use('/api/v1/plants', plants);
 
 if (process.env.NODE_ENV == 'production') {
     // Handles any requests that don't match the ones above

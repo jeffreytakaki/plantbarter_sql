@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
 const connection = require('../database_connect');
-const User = require("../models/User");
-const Plant = require('../models/Plant');
 
 // GET USER PLANTS =============================================================
 router.get('/plants', function (req, res) {
@@ -33,7 +30,6 @@ router.post('/plant/add', function (req, res) {
         // find all plants from user
         connection.query(q, (error, results) => {
             if(error) res.json(error);
-
             let check = true;
             // add logic to check if plant assigned to user already
             results.forEach(value => {
@@ -43,15 +39,14 @@ router.post('/plant/add', function (req, res) {
             })
             if(check) {
                 const insertQuery = `INSERT into users_plants (user_id, plant_id) VALUES (${user_id}, ${req.body.plant_id});`;
+                console.log('insertQuery', insertQuery);
                 // if not, add the plant
                 connection.query(insertQuery, (error, results) => {
-                    console.log('error')
                     if (error) res.json(error)
                     
                     // now retrieve the plant and send it back to the client
                     const getPlantQuery = `SELECT * FROM plants WHERE plant_id=${req.body.plant_id};`
                     connection.query(getPlantQuery, (error, results) => {
-                        console.log('error')
                         if (error) res.json(error)
                         res.json({statusCode: 200, results});
                     })
