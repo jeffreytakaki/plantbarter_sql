@@ -14,7 +14,7 @@ let updateHeaders = () => {
 
 export const getUserPlantsList = (plants) => {
     return async function(dispatch, getState) {
-        let response = await axios.get('/api/v1/profile/plants', updateHeaders);
+        let response = await axios.get('/api/v1/profile/plants', updateHeaders());
         dispatch({type: "GET_USER_PLANT_LIST", payload: response })
     }
 }
