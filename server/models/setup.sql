@@ -1,20 +1,3 @@
-INSERT INTO plant_category (category_type) VALUES ('Annuals');
-INSERT INTO plant_category (category_type) VALUES ('Bulbs');
-INSERT INTO plant_category (category_type) VALUES ('Cactus');
-INSERT INTO plant_category (category_type) VALUES ('Climbers');
-INSERT INTO plant_category (category_type) VALUES ('Conifers');
-INSERT INTO plant_category (category_type) VALUES ('Ferns');
-INSERT INTO plant_category (category_type) VALUES ('Fruit');
-INSERT INTO plant_category (category_type) VALUES ('Herbs');
-INSERT INTO plant_category (category_type) VALUES ('Ornamental Grasses');
-INSERT INTO plant_category (category_type) VALUES ('Perennials');
-INSERT INTO plant_category (category_type) VALUES ('Roses');
-INSERT INTO plant_category (category_type) VALUES ('Shrubs');
-INSERT INTO plant_category (category_type) VALUES ('Trees');
-INSERT INTO plant_category (category_type) VALUES ('Palms - Cycades');
-INSERT INTO plant_category (category_type) VALUES ('Bamboos');
-INSERT INTO plant_category (category_type) VALUES ('Vegetables');
-
 
 INSERT INTO plants (name, type, category_id, plant_short_description, plant_long_description, image_url) VALUES ('Beach Strawberry', 'Strawberry', (SELECT category_id FROM plant_category WHERE category_type='Fruit'),'The garden strawberry (or simply strawberry; Fragaria × ananassa)is a widely grown hybrid species of the genus Fragaria, collectively known as the strawberries, which are cultivated worldwide for their fruit.','The garden strawberry (or simply strawberry; Fragaria × ananassa)[1] is a widely grown hybrid species of the genus Fragaria, collectively known as the strawberries, which are cultivated worldwide for their fruit. The fruit is widely appreciated for its characteristic aroma, bright red color, juicy texture, and sweetness. It is consumed in large quantities, either fresh or in such prepared foods as jam, juice, pies, ice cream, milkshakes, and chocolates. Artificial strawberry flavorings and aromas are also widely used in products such as candy, soap, lip gloss, perfume, and many others. The garden strawberry was first bred in Brittany, France, in the 1750s via a cross of Fragaria virginiana from eastern North America and Fragaria chiloensis, which was brought from Chile by Amédée-François Frézier in 1714.[2] Cultivars of Fragaria × ananassa have replaced, in commercial production, the woodland strawberry (Fragaria vesca), which was the first strawberry species cultivated in the early 17th century. The strawberry is not, from a botanical point of view, a berry. Technically, it is an aggregate accessory fruit, meaning that the fleshy part is derived not from the plant''s ovaries but from the receptacle that holds the ovaries. Each apparent ''seed'' (achene) on the outside of the fruit is actually one of the ovaries of the flower, with a seed inside it.','https://via.placeholder.com/250');
 INSERT INTO plants (name, type, category_id, plant_short_description, plant_long_description, image_url) VALUES ('White Peach', 'Peach', (SELECT category_id FROM plant_category WHERE category_type='Fruit'),'Unlike their yellow-fleshed cousins, white peaches (Prunus persica) boast a creamy pinkish-white flesh that is sweeter to taste and low in acidity','Unlike their yellow-fleshed cousins, white peaches (Prunus persica) boast a creamy pinkish-white flesh that is sweeter to taste and low in acidity. Because the peach tree is a self-fertilizing tree, white peaches occur in nature, but they also develop as a result of hybrid trees that are crossed too frequently. Varieties of white peaches have been documented as early as the 1600s; however, these fruits grew in commercial popularity after the 1980s.','https://via.placeholder.com/250');
