@@ -54,15 +54,15 @@ module.exports = function(passport) {
         newUserMysql.email    = req.body.email;
         newUserMysql.password = await pwHelpers.encryptPassword(password); // use the generateHash function in our user model
 
-        let q = `INSERT users(first_name, last_name, email, username, password) VALUES ('${newUserMysql.first_name}', '${newUserMysql.last_name}', '${newUserMysql.email}', '${newUserMysql.username}', '${newUserMysql.password}');`;
-        console.log('local sign up', q);
+        let q = `INSERT INTO users(first_name, last_name, email, username, password) VALUES ('${newUserMysql.first_name}', '${newUserMysql.last_name}', '${newUserMysql.email}', '${newUserMysql.username}', '${newUserMysql.password}');`;
         connection.query(q, (error, results,field) => {
             if(error) {
-                console.log('error creating user', error)
                 return done(error);
             }
             if (results.insertId) {
-                connection.query(`SELECT * FROM users WHERE users.email=${req.body.email};`, (error, results) => {
+                connection.query(`SELECT * FROM users WHERE users.email='${req.body.email}';`, (error, results) => {
+                    console.log('error', error)
+                    console.log('results[0]', results)
                     return done(null,results[0]);
                 })
             } else {

@@ -21,17 +21,19 @@ class UserPlantCollection extends React.Component {
     }
 
     handleDelete(event) {
-        this.props.deleteUserPlant(event.target.parentNode.parentNode.id);
+        this.props.deleteUserPlant(event.target.parentNode.dataset.deleteId);
     }
 
     render() {
         let plantList;
         if(this.props.user_plants) {
-            plantList = this.props.user_plants.map((plant, i) => {
-                return ( <PlantCard key={i} plant={plant} handleDelete={this.handleDelete} /> )
-            });
-        } else {
-            plantList = '';
+            if(this.props.user_plants.length) {
+                plantList = this.props.user_plants.map((plant, i) => {
+                    return ( <PlantCard key={i} plant={plant} handleDelete={this.handleDelete} /> )
+                });
+            } else {
+                plantList = <h2>you have no saved plants!</h2>
+            }
         }
 
         return (

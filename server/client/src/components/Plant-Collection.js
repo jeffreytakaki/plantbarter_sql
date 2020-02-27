@@ -20,7 +20,8 @@ class PlantCollection extends React.Component {
     }
 
     handleAddPlant(event) {
-        const plant_id = event.target.parentNode.id;
+        console.log('event.target', event.target.dataset)
+        const plant_id = event.target.dataset.addId;
         this.props.addUserPlant(plant_id);
     }
 
