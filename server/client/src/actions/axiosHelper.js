@@ -2,7 +2,7 @@ const getjwtcookie = () => {
     if(localStorage.plantToken) return localStorage.plantToken;
 }
 
-export const config = {
+export let config = {
     headers: {
         authorization: `JWT ${getjwtcookie()}`
     }

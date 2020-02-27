@@ -36,7 +36,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.post('/signup', passport.authenticate('local-signup'), (req, res) => {
-  res.json(req.user)
+    const token = jwt.sign({id: req.user.username}, jwtConfig.secret)
+    req.user.token = token;
+    res.json(req.user)
 });
 app.post('/login', passport.authenticate('local-login'), (req, res) => {
     console.log(req.user.username)

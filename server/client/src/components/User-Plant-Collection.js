@@ -21,6 +21,9 @@ class UserPlantCollection extends React.Component {
     }
 
     handleDelete(event) {
+        const plant_id = event.target.parentNode.dataset.deleteId;
+        console.log('plant_id delete', plant_id)
+
         this.props.deleteUserPlant(event.target.parentNode.dataset.deleteId);
     }
 

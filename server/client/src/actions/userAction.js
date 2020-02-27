@@ -33,7 +33,7 @@ export const logoutUser = (user) => {
 export function registerUser(user) {
     return async function(dispatch, getState) {
         let response = await axios.post('/signup', user);
-        console.log('response', response);
+        localStorage.setItem('plantToken', response.data.token);
         dispatch({type: CREATE_USER, payload: response })
     }
 }
