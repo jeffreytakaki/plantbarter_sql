@@ -26,8 +26,6 @@ class PlantList extends React.Component {
     }
 
     render(props) {
-
-        console.log('this.props.users', this.props)
         
         let plantList = this.props.plants.map((plant, i) => {
 

@@ -56,17 +56,20 @@ class LoginForm extends React.Component {
         return (
 
             <div className="user-form-wrapper">
+                <h1>Sign in</h1>
                 <form>
-                    <div className="section">
-                        <label>email</label>
-                        <input type="text" name="email" onChange={this.handleChange} placeholder="email" />
-                    </div>
-                    <div className="section">
-                        <label>password</label>
-                        <input type="text" name="password" onChange={this.handleChange} placeholder="password" />
-                    </div>
-                    <div className="section">
-                        <button type='submit' onClick={this.handleSubmit}>login</button>
+                    <div className="form-group">
+                        <div className="section">
+                            <label>email</label>
+                            <input type="text" className="form-control" name="email" onChange={this.handleChange} placeholder="email" />
+                        </div>
+                        <div className="section">
+                            <label>password</label>
+                            <input type="text" className="form-control" name="password" onChange={this.handleChange} placeholder="password" />
+                        </div>
+                        <div className="section">
+                            <button type='submit' className="btn btn-primary" onClick={this.handleSubmit}>login</button>
+                        </div>
                     </div>
                 </form>
             </div>
