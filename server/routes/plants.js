@@ -1,8 +1,27 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('../database_connect');
-const passport = require('passport');
-const Plant = require("../models/Plant");
+
+
+// get all plants
+router.get('/', function (req, res) {
+    const q = `SELECT * FROM plants`;
+    connection.query(q, (error, results) => {
+        if (error) res.json(error);
+        res.json(results);
+    })
+});
+
+// Get a plant
+router.get('/:plant_id', function (req, res) {
+    // join the plants and plant_category tables so we can get the name of the category (ie. Fruit, Shrugs, etc...);
+    const query = `SELECT * from plants JOIN plant_category ON plants.category_id = plant_category.category_id WHERE plant_id = ${req.params.plant_id};`;
+    connection.query(query, (error, results) => {
+        if (error) res.json(error);
+        res.json(results);
+    })
+});
+
 
 // Create Plant
 router.post('/', function (req, res) {

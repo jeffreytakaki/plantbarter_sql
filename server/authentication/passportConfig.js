@@ -61,10 +61,14 @@ module.exports = function(passport) {
                 console.log('error creating user', error)
                 return done(error);
             }
-            
-            console.log('results.insertId', results.insertId)
-    
-            return done(null,results);
+            if (results.insertId) {
+                connection.query(`SELECT * FROM users WHERE users.email=${req.body.email};`, (error, results) => {
+                    return done(null,results[0]);
+                })
+            } else {
+                console.log('error retrieving newly created user');
+                return done(null);
+            }
         })
 
     }));
@@ -107,7 +111,6 @@ module.exports = function(passport) {
     var opts = {}
     opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('JWT');
     opts.secretOrKey = jwtConfig.secret;
-
     passport.use('jwt', new JwtStrategy(opts, 
         async function(jwt_payload, done) {
             const q = `SELECT * FROM users WHERE users.username = '${jwt_payload.id}';`;

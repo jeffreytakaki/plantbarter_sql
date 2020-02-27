@@ -5,7 +5,7 @@ const users = (state = {}, action) => {
         case CREATE_USER :
             return Object.assign({}, state, 
                 {
-                    user_name: action.payload.data.user_name,
+                    username: action.payload.data.username,
                     email: action.payload.data.email,
                     first_name: action.payload.data.first_name,
                     last_name: action.payload.data.last_name
@@ -13,10 +13,7 @@ const users = (state = {}, action) => {
             );
         
         case LOGIN_USER:
-            console.log('user', action.payload)
             const user = action.payload;
-            
-
             return Object.assign({}, state, 
                 {
                     username: user.username,
@@ -27,7 +24,6 @@ const users = (state = {}, action) => {
             );
 
         case LOGOUT_USER:
-        
             state = {}
             return state;
 

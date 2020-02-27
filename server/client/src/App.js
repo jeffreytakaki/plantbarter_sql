@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import ProfileConnected from './pages/Profile'
 import PlantCollection from './components/Plant-Collection';
 import PlantForm from './components/Plant-Form';
+import Plant from './pages/Plant';
 import LoginSignupContainer from './pages/LoginSignupContainer';
 import RegisterFormConnected from './components/RegisterForm';
 import {Provider} from 'react-redux';
@@ -18,12 +19,11 @@ class App extends React.Component {
                     <Router>
                         <HeaderConnected />
                         <div className='content-body'>
-                            <Route path='/home'>
-                                <Home />
-                            </Route>
+                            <Route path='/home' component={Home} />
                             <Route path='/profile'>
                                 <ProfileConnected />
                             </Route>
+                            <Route path='/plant/:plant_id' component={Plant} />
                             <Route path='/profile/edit'>
                                 <RegisterFormConnected />
                             </Route>

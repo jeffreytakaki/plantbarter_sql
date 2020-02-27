@@ -1,4 +1,4 @@
-# docker volume
+#exclude the docker volume
 data
 
 # Logs

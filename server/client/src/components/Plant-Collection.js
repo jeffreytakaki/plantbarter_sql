@@ -1,7 +1,7 @@
 import React from 'react';
-import {Plant} from './Plant';
+import { PlantCard } from './Plant-Card';
 import { connect } from 'react-redux';
-import {getPlantsList} from '../actions/plantActions';
+import { getPlantsList } from '../actions/plantsActions';
 import {createUserPlant} from '../actions/user_plantActions';
 
 class PlantCollection extends React.Component {
@@ -28,7 +28,7 @@ class PlantCollection extends React.Component {
 
         let plantList = this.props.plants.map((plant, i) => {
             return (
-            <Plant key={i} plant={plant} handleAddPlant={this.handleAddPlant}/>
+            <PlantCard key={i} plant={plant} handleAddPlant={this.handleAddPlant}/>
             )
         });
 

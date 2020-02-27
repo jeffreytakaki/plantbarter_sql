@@ -25,6 +25,7 @@ app.use(bodyParser.urlencoded({ // Takes the raw requests and turns them into us
 }));
 app.use(bodyParser.json());
 
+// Handle the other passport stuff
 passportConfig(passport); //get local strategies from passport
 app.use(passport.initialize());
 app.use(passport.session());
@@ -45,33 +46,19 @@ app.post('/login', passport.authenticate('local-login'), (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-    res.status(200).json([]);
+    res.redirect(301, '/')
 });
 
-// get all plants
-app.get('/plants', function (req, res) {
-    const q = `SELECT * FROM plants`;
-    connection.query(q, (error, results) => {
-        if (error) res.json(error);
-        res.json(results);
-    })
-});
+app.use('/api/v1/profile', passport.authenticate('jwt'), usersplants);
+app.use('/api/v1/users', passport.authenticate('jwt'), users);
+app.use('/api/v1/plants', plants);
 
-// get plant
-app.get('/plant/:plant_id', function (req, res) {
-    console.log('req.params', req.params)
-    const q = `SELECT * FROM plants WHERE plant_id = ${req.params.plant_id};`;
- 
-    connection.query(q, (error, results) => {
-        if (error) res.json(error);
-
-        res.json(results);
-    })
-});
-
-app.use('/profile', passport.authenticate('jwt'), usersplants);
-app.use('/users', passport.authenticate('jwt'), users);
-app.use('/plant', passport.authenticate('jwt'), plants);
+if (process.env.NODE_ENV == 'production') {
+    // Handles any requests that don't match the ones above
+    app.get('*', (req,res) =>{
+        res.sendFile(path.join(__dirname+'/client/build/index.html'));
+    });
+}
 
 if (process.env.NODE_ENV === 'production') {
     // Serve any static files
