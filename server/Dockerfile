@@ -10,7 +10,7 @@ COPY package*.json ./
 RUN npm install
 
 # build client and start server 
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "production" ]
 
 # Copy contents of server directory into user/src/app
 COPY . .
