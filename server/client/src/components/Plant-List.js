@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { getPlantsList } from '../actions/plantsActions';
 import {createUserPlant} from '../actions/user_plantActions';
 
-class PlantCollection extends React.Component {
-    constructor() {
+class PlantList extends React.Component {
+    constructor(props) {
         super();
 
         this.state = {
@@ -16,7 +16,7 @@ class PlantCollection extends React.Component {
     }
 
     componentWillMount() {
-        this.props.getPlants()
+        
     }
 
     handleAddPlant(event) {
@@ -25,11 +25,14 @@ class PlantCollection extends React.Component {
         this.props.addUserPlant(plant_id);
     }
 
-    render() {
+    render(props) {
 
+        console.log('this.props.users', this.props)
+        
         let plantList = this.props.plants.map((plant, i) => {
+
             return (
-            <PlantCard key={i} plant={plant} handleAddPlant={this.handleAddPlant}/>
+            <PlantCard key={i} plant={plant} handleAddPlant={this.handleAddPlant} userLoggedIn={Object.entries(this.props.users).length}/>
             )
         });
 
@@ -41,7 +44,7 @@ class PlantCollection extends React.Component {
             </div>
         )
     }
-};
+};  
 
 const mapDispatchToEvents = (dispatch) => {
     return {
@@ -55,13 +58,12 @@ const mapDispatchToEvents = (dispatch) => {
 };
 
 const mapStateToProps = (state) => {
-    // console.log('plant state',state)
     return {
-        plants: state.plants
+        users: state.users
     }
 };
 
-const PlantCollectionConnected = connect(mapStateToProps,mapDispatchToEvents)(PlantCollection)
-export default PlantCollectionConnected
+const PlantListConnected = connect(mapStateToProps, mapDispatchToEvents)(PlantList)
+export default PlantListConnected
 
 

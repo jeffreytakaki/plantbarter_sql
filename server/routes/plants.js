@@ -41,6 +41,18 @@ router.post('/', function (req, res) {
     });
 });
 
+// Search Plants
+router.post('/search', function (req, res) {
+    // join the plants and plant_category tables so we can get the name of the category (ie. Fruit, Shrugs, etc...);
+    const query = `SELECT * FROM plants WHERE plants.name LIKE '%${req.body.keyword}%';`;
+    connection.query(query, (error, results) => {
+        if (error) res.json(error);
+        res.json(results);
+    })
+});
+
+
+
 // update a plant 
 router.put('/:plant_id', (req, res) => {
     connection.query(`SELECT * FROM plants WHERE plant_id = ${req.params.plant_id}`, (error, results) => {
