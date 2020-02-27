@@ -1,0 +1,38 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    li.plant-card {
+        position: relative;
+        width: auto;
+        padding: 2%;
+        div.delete-card {
+            position: absolute;
+            right: 10px;
+            &:hover { cursor: pointer; }
+        }
+        div.plant-row {
+            display: flex;
+            justify-content: space-evenly;
+            flex-direction: row;
+
+        }
+    
+        .btn {
+            width: 35%;
+        }
+        img {
+            width: 100%;
+        }
+        
+        h4.plant-name {
+            // margin-top: 50%;
+        }
+    }
+    
+}
+

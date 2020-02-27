@@ -39,14 +39,23 @@ export const PlantCard = props => {
     const showDelete = (props['handleDelete'] !== undefined) ? <div className='delete-card' onClick={props.handleDelete} delete-id={props.plant.plant_id}>{deleteIcon}</div> : '';
     const showAddButton = (props['handleAddPlant'] !== undefined) ? <button className='btn btn-primary' onClick={props.handleAddPlant} add-id={props.plant.plant_id}>Add</button> : ''; 
     
+    console.log("plantcard", props)
     return (
-        <Link to={`/plant/${props.plant.plant_id}`}>
-            <li className='plant-card' id={props.plant.plant_id}>
-                {showDelete}
-                <h4 className='plant-name'>{props.plant.name}</h4>
-                {showAddButton}
-            </li>
-        </Link>
+        
+        <li className='plant-card' id={props.plant.plant_id}>
+            {showDelete}
+            <div className="plant-row"><img src={props.plant.image_url} /></div>
+            <div className="plant-row">
+                <Link to={`/plant/${props.plant.plant_id}`}><h4 className='plant-name'>{props.plant.name}</h4></Link>
+            </div>
+            <div className="plant-row">
+                {showAddButton}                
+            </div>            
+            
+            
+
+        </li>
+        
     )
 
 }
