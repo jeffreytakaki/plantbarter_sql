@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PlantListConnected from './Plant-List';
-import { searchPlantsByKeyword } from '../actions/searchActions';
+import { searchPlantsByKeyword, searchLoadMore } from '../actions/searchActions';
 
 class Search extends React.Component {
     constructor() {
@@ -9,11 +9,13 @@ class Search extends React.Component {
 
         this.state = {
             keyword: '',
-            pagination: 1
+            pagination: 0,
+            numberOfResults: 5
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleLoadMore = this.handleLoadMore.bind(this);
     }
 
 
@@ -23,12 +25,33 @@ class Search extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.searchPlants(this.state.keyword)
+        this.setState({pagination: 0}, () => {
+            // setState is async, so pagination value was not updated before i called searchLoadMore function. using the callback ensured the value was set. 
+            this.props.searchPlants(this.state)
+        });    
+    }
+
+    handleLoadMore() {
+        this.setState({pagination: this.state.pagination + this.state.numberOfResults}, () => {
+            // setState is async, so pagination value was not updated before i called searchLoadMore function. using the callback ensured the value was set. 
+            this.props.searchLoadMore(this.state)
+        });
     }
 
     displayResults() {
-        if(this.props.search) {
-            return <PlantListConnected plants={this.props.search} />
+
+        if(this.props.search && this.props.search.length > 0) {
+            console.log('this.props.search', this.props.search)
+            return (
+                <div className="search-results">
+                    <div className="search-section">
+                        <PlantListConnected plants={this.props.search} />
+                    </div>
+                    <div className="search-section">
+                        <button className="btn btn-primary" onClick={this.handleLoadMore}>Load More</button>
+                    </div>
+                </div>
+            )
         }
 
         return '';
@@ -45,7 +68,6 @@ class Search extends React.Component {
                     </div>
                 </form>
                 {this.displayResults()}
-                
             </div>
             
         )
@@ -55,14 +77,17 @@ class Search extends React.Component {
 
 const mapDispatchToEvents = (dispatch) => {
     return {
-        searchPlants: (keyword) => {
-            dispatch(searchPlantsByKeyword(keyword));
+        searchPlants: (search) => {
+            dispatch(searchPlantsByKeyword(search));
+        },
+        searchLoadMore: (search) => {
+            dispatch(searchLoadMore(search));
         }
     };
 };
 
 const mapStateToProps = (state) => {
-    console.log("state.searchResults", state.searchResults)
+    console.log("state.searchResults", state)
     return {
         search: state.searchResults
     }

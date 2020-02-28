@@ -41,12 +41,24 @@ router.post('/', function (req, res) {
     });
 });
 
+// SELECT *
+// FROM yourtable
+// WHERE id > 234374
+// ORDER BY id
+// LIMIT 20
+
 // Search Plants
 router.post('/search', function (req, res) {
     // join the plants and plant_category tables so we can get the name of the category (ie. Fruit, Shrugs, etc...);
-    const query = `SELECT * FROM plants WHERE plants.name LIKE '%${req.body.keyword}%';`;
+    console.log('req.body', req.body)
+    let pagination = req.body.pagination;
+    let numberOfResults = req.body.numberOfResults;
+    const query = `SELECT * FROM plants WHERE plants.name LIKE '%${req.body.keyword}%' ORDER BY plants.plant_id LIMIT ${pagination},${numberOfResults};`;
+
+    console.log('query', query)
     connection.query(query, (error, results) => {
         if (error) res.json(error);
+
         res.json(results);
     })
 });
