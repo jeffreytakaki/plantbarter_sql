@@ -16,7 +16,6 @@ class Plant extends React.Component {
     }
 
     renderPage(plant) {
-        console.log("this.props.users", this.props.users);
         return (
             <div className="plant-container">
                 <div>Plant type: {plant.category_type}</div>
@@ -31,18 +30,11 @@ class Plant extends React.Component {
     }
 
     render() {
-        console.log("this.props.plant", this.props.plant)
-        let page;
-        if(this.props.plant.length) {
-            console.log('inside')
-            page = this.renderPage(this.props.plant[0])
-        } else {
-            page = '';
-        }
-
+        let page = '';
+        if(this.props.plant.length) page = this.renderPage(this.props.plant[0])
+        
         return (
             <div className="plant-body">
-                {/* <h1>{this.props.plant[0].name}</h1> */}
                 {page}
             </div>
         )
