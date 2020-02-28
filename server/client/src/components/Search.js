@@ -1,14 +1,15 @@
 import React from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
 import PlantListConnected from './Plant-List';
+import { searchPlantsByKeyword } from '../actions/searchActions';
 
-export default class Search extends React.Component {
+class Search extends React.Component {
     constructor() {
         super();
 
         this.state = {
             keyword: '',
-            plants: []
+            pagination: 1
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -22,13 +23,15 @@ export default class Search extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        this.props.searchPlants(this.state.keyword)
+    }
 
-        axios.post('/api/v1/plants/search', {keyword: this.state.keyword}).then(results => {
-            console.log('results', results);
-            this.setState({
-                plants: results.data
-            })
-        })
+    displayResults() {
+        if(this.props.search) {
+            return <PlantListConnected plants={this.props.search} />
+        }
+
+        return '';
     }
 
     render() {
@@ -41,12 +44,33 @@ export default class Search extends React.Component {
                         <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Search</button>
                     </div>
                 </form>
-                <PlantListConnected plants={this.state.plants} />
+                {this.displayResults()}
+                
             </div>
             
         )
     }
 };
+
+
+const mapDispatchToEvents = (dispatch) => {
+    return {
+        searchPlants: (keyword) => {
+            dispatch(searchPlantsByKeyword(keyword));
+        }
+    };
+};
+
+const mapStateToProps = (state) => {
+    console.log("state.searchResults", state.searchResults)
+    return {
+        search: state.searchResults
+    }
+};
+
+const SearchConnected = connect(mapStateToProps, mapDispatchToEvents)(Search)
+export default SearchConnected
+
 
 
 

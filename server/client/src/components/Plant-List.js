@@ -2,7 +2,7 @@ import React from 'react';
 import { PlantCard } from './Plant-Card';
 import { connect } from 'react-redux';
 import { getPlantsList } from '../actions/plantsActions';
-import {createUserPlant} from '../actions/user_plantActions';
+import { createUserPlant } from '../actions/user_plantActions';
 
 class PlantList extends React.Component {
     constructor(props) {
