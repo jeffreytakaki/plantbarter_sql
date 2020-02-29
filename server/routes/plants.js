@@ -14,11 +14,30 @@ router.get('/', function (req, res) {
 
 // Get a plant
 router.get('/:plant_id', function (req, res) {
+    let response = {
+        plant: [],
+        community: []
+    };
+
     // join the plants and plant_category tables so we can get the name of the category (ie. Fruit, Shrugs, etc...);
     const query = `SELECT * from plants JOIN plant_category ON plants.category_id = plant_category.category_id WHERE plant_id = ${req.params.plant_id};`;
     connection.query(query, (error, results) => {
         if (error) res.json(error);
-        res.json(results);
+        
+        if(results.length) {
+            response['plant'].push(results[0]);
+        }
+
+        const plantUsersQuery = `SELECT * FROM users WHERE users.user_id IN (SELECT user_id FROM users_plants WHERE users_plants.plant_id = ${req.params.plant_id});`
+        connection.query(plantUsersQuery, (error, results) => {
+            if (error) res.json(error);
+
+            if(results.length) {
+                response.community.push(results)
+            }
+
+            res.json(response);
+        });
     })
 });
 
