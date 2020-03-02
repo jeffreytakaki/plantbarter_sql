@@ -1,5 +1,6 @@
 import React from 'react';
 import { getPlantById } from '../actions/plantActions';
+import { createUserPlant } from '../actions/user_plantActions';
 import { connect } from 'react-redux';
 
 
@@ -7,6 +8,7 @@ class Plant extends React.Component {
     constructor(props, dispatch) {
         super(props);
 
+        this.handleAddPlant = this.handleAddPlant.bind(this);
         this.renderPlantPage = this.renderPlantPage.bind(this);
         this.renderCommunityPage = this.renderCommunityPage.bind(this);
     }
@@ -16,23 +18,26 @@ class Plant extends React.Component {
         this.props.fetchPlant(plant_id)
     }
 
+    handleAddPlant(event) {
+        console.log('event.target', event.target.dataset)
+        const plant_id = event.target.dataset.addId;
+        this.props.addUserPlant(plant_id);
+    }
+
     renderPlantPage(plant) {
-        // const plantDetails = (plant.plant.length) ? plant.plant[0] : false;
-        // console.log('plantDetails',plantDetails)
-        // if(plantDetails) {
-            return (
-                <div className="plant-container">
-                    <div>Plant type: {plant.category_type}</div>
-                    <h1>{plant.name}</h1>
-                    <img src={plant.image_url} />
-                    <h4>{plant.plant_short_description}</h4>
-                    <div className="plant-content">
-                        <article>{plant.plant_long_description}</article>
-                    </div>
-                </div>
-            )
-        // }
         
+        return (
+            <div className="plant-container">
+                <div>Plant type: {plant.category_type}</div>
+                <h1>{plant.name}</h1>
+                <img src={plant.image_url} />
+                <h4>{plant.plant_short_description}</h4>
+                <div className="plant-content">
+                    <article>{plant.plant_long_description}</article>
+                </div>
+                <button className="btn btn-primary" onClick={this.handleAddPlant} data-add-id={plant.plant_id}>Add</button>
+            </div>
+        )
     }
 
     renderCommunityPage(community) {
@@ -92,6 +97,9 @@ const mapDispatchToEvents = (dispatch) => {
     return {
         fetchPlant: (plant_id) => {
             dispatch(getPlantById(plant_id));
+        },
+        addUserPlant: (plant_id) => {
+            dispatch(createUserPlant(plant_id));
         }
     };
 };
