@@ -69,20 +69,14 @@ router.post('/', function (req, res) {
 // Search Plants
 router.post('/search', function (req, res) {
     // join the plants and plant_category tables so we can get the name of the category (ie. Fruit, Shrugs, etc...);
-    console.log('req.body', req.body)
     let pagination = req.body.pagination;
     let numberOfResults = req.body.numberOfResults;
     const query = `SELECT * FROM plants WHERE plants.name LIKE '%${req.body.keyword}%' ORDER BY plants.plant_id LIMIT ${pagination},${numberOfResults};`;
-
-    console.log('query', query)
     connection.query(query, (error, results) => {
         if (error) res.json(error);
-
         res.json(results);
     })
 });
-
-
 
 // update a plant 
 router.put('/:plant_id', (req, res) => {
