@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { logoutUser, findUser } from '../actions/userAction';
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { slide as Menu } from 'react-burger-menu';
 
 
@@ -60,10 +60,10 @@ class Header extends React.Component {
                     onStateChange={(state) => this.handleStateChange(state)}
                 >
                     <div className="section">
-                        <Link to="/home" onClick={() => this.closeMenu()}>Home</Link>
+                        <NavLink to="/home" onClick={() => this.closeMenu()}>Home</NavLink>
                     </div>  
                     <div className="section">
-                        <Link to="/account" onClick={() => this.closeMenu()}>Login/Signup</Link>
+                        <NavLink to="/account" onClick={() => this.closeMenu()}>Login/Signup</NavLink>
                     </div>
                 </Menu>
             )
@@ -78,13 +78,13 @@ class Header extends React.Component {
                         hi, {this.props.users.username}
                     </div>
                     <div className="section">
-                        <Link to="/home" onClick={() => this.closeMenu()}>Home</Link>
+                        <NavLink to="/home" onClick={() => this.closeMenu()}>Home</NavLink>
                     </div>     
                     <div className="section">     
-                        <Link to="/plant-collection" onClick={() => this.closeMenu()}>collection</Link>
+                        <NavLink to="/plant-collection" onClick={() => this.closeMenu()}>collection</NavLink>
                     </div>
                     <div className="section">     
-                        <Link to="/profile" onClick={() => this.closeMenu()}>profile</Link>
+                        <NavLink to="/profile" onClick={() => this.closeMenu()}>profile</NavLink>
                     </div>
                     <div className="section">     
                         <button onClick={this.logout}>logout</button>

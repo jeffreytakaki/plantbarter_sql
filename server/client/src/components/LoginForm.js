@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
 import { loginUser } from '../actions/userAction';
 
 class LoginForm extends React.Component {
@@ -27,31 +28,13 @@ class LoginForm extends React.Component {
     }
 
     loginRedirect() {
-
-        // this.context.router.push('/newPath');
-        // let history = useHistory();
-        // let location = useLocation();
-
-        // console.log('location', location.state)
       
-        // let { from } = location.state || { from: { pathname: "/" } };
-        // let login = () => {
-        //   fakeAuth.authenticate(() => {
-        //     history.replace(from);
-        //   });
-        // };
-      
-        // return (
-        //   <div>
-        //     <p>You must log in to view the page at {from.pathname}</p>
-        //     <button onClick={login}>Log in</button>
-        //   </div>
-        // );
-    }
+        return ( <Redirect to="/profile" /> );
+    }   
 
     render() {
 
-        if (this.props['users']) this.loginRedirect();
+        let showRedirect = (this.props['users'] && this.props['users'].username ) ? this.loginRedirect(): '';
 
         return (
 
@@ -72,6 +55,7 @@ class LoginForm extends React.Component {
                         </div>
                     </div>
                 </form>
+                { showRedirect }
             </div>
 
         )

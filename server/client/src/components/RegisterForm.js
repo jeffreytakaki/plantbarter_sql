@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
 import { loginUser, registerUser } from '../actions/userAction';
 
 class RegisterForm extends React.Component {
@@ -13,6 +14,7 @@ class RegisterForm extends React.Component {
             username: ''
         }
 
+        this.loginRedirect = this.loginRedirect.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -32,7 +34,14 @@ class RegisterForm extends React.Component {
         this.props.register(this.state)
     }
 
+    loginRedirect() {
+      
+        return ( <Redirect to="/profile" /> );
+    }   
+
     render() {
+        let showRedirect = (this.props['users'] && this.props['users'].username ) ? this.loginRedirect(): '';
+
         return (
 
             <div className="user-form-wrapper">
@@ -65,6 +74,7 @@ class RegisterForm extends React.Component {
                         </div>
                     </div>
                 </form>
+                {showRedirect}
             </div>
 
         )
