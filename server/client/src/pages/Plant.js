@@ -45,15 +45,16 @@ class Plant extends React.Component {
             const getDayOfTheWeek = day_names[date.getDay()];
             const getMonth = month_names[date.getMonth()];
             const getMonthDate = date.getDate();
-    
-
-            let dateString = `Posted on: ${getDayOfTheWeek}, ${getMonth} ${getMonthDate}`;
-            console.log('user', user)
+            const dateString = `Posted on: ${getDayOfTheWeek}, ${getMonth} ${getMonthDate}`;
 
             return (
                 <li key={i} className="community-user">
-                    <div class="community-section"><h2>{user.username}</h2></div>
-                    <div class="community-section">{dateString}</div>
+                    <div className="community-section"><img src={user.image_url} alt={user.username}/></div>
+                    <div className="community-section"><h2>{user.username}</h2></div>
+                    <div className="community-section">{dateString}</div>
+                    <div className="community-section">
+                        <button className='btn btn-primary'>Connect</button>
+                    </div>
                     
                 </li>
             )

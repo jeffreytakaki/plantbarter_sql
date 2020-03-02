@@ -1,6 +1,14 @@
 ul.community-list {
     display: block;
+    background-color: beige;
+    padding: 1%;
     li.community-user {
-
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        div.community-section {
+            
+        }
     }
 }

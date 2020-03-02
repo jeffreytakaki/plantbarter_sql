@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS users (
     last_name VARCHAR(50),
     email VARCHAR(50) UNIQUE,
     username VARCHAR(50) UNIQUE,
+    image_url VARCHAR(200),
     password VARCHAR(200),
     created_at TIMESTAMP,
     PRIMARY KEY (user_id)
