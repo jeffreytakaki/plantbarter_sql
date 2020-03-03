@@ -5,8 +5,54 @@
 @import './plant-card';
 @import './community';
 
+.font{
+  &-abril-fatface{
+    font-family: 'Abril Fatface';
+  }
+  &-abril-yellowtail{
+    font-family: 'Yellowtail';
+  }
+  &-abril-open-sans{
+    font-family: 'Open Sans';
+  }
+}
+
 .content-body {
     padding: 2%;
+    padding-top: 80px;
+
+    .home-container{
+      .search-body{
+        width: 90%;
+        margin: 0 auto;
+        display: block;
+        max-width: 600px;
+
+        .form-group{
+          position: relative;
+
+          button{
+            &.btn-primary[type="submit"]{
+              position: absolute;
+              z-index: 1;
+              top: 0;
+              right: 0;
+            }
+          }
+        }
+        
+        button{
+          &.btn-load-more{
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            font-size: 18px;
+            margin-top:50px;
+          }
+        }
+      
+      }
+    }
 }
 
 .form-class {
@@ -18,6 +64,26 @@
         margin: 10px 0;
     }
 }
+
+
+
+
+// BUTTONS
+ button{
+   &.btn{
+    background-color:$color-baby-green-light;
+    border-color: $color-baby-green-light;
+
+    &:hover,
+    &:active,
+    &:focus{
+      background-color: $color-baby-green-dark !important;
+      border-color: $color-baby-green-dark !important;
+    }
+   }
+ }
+
+
 
 // ul {
 //     list-style-type: none;
