@@ -60,17 +60,22 @@ router.post('/', function (req, res) {
     });
 });
 
-// SELECT *
-// FROM yourtable
-// WHERE id > 234374
-// ORDER BY id
-// LIMIT 20
+// Return top traded plants
+router.post('/search/top-five', function (req, res) {
+    // Get plant ids of the most added plant to trade in the users_plants table
+    const getPopularPlantIds = `SELECT * FROM plants WHERE plants.plant_id IN (SELECT plant_id FROM  users_plants GROUP BY plant_id ORDER BY COUNT(plant_id) DESC)  GROUP BY plant_id ORDER BY plant_id DESC LIMIT 5;`;
+
+    connection.query(getPopularPlantIds, (error, results) => {
+        if (error) res.json(error);
+        res.json(results);
+    })
+});
 
 // Search Plants
 router.post('/search', function (req, res) {
     // join the plants and plant_category tables so we can get the name of the category (ie. Fruit, Shrugs, etc...);
-    let pagination = req.body.pagination;
-    let numberOfResults = req.body.numberOfResults;
+    const pagination = req.body.pagination;
+    const numberOfResults = req.body.numberOfResults;
     const query = `SELECT * FROM plants WHERE plants.name LIKE '%${req.body.keyword}%' ORDER BY plants.plant_id LIMIT ${pagination},${numberOfResults};`;
     connection.query(query, (error, results) => {
         if (error) res.json(error);
