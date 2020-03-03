@@ -48,7 +48,7 @@ class Search extends React.Component {
                         <PlantListConnected plants={this.props.search} />
                     </div>
                     <div className="search-section">
-                        <button className="btn btn-primary" onClick={this.handleLoadMore}>Load More</button>
+                        <button className="btn btn-primary btn-load-more" onClick={this.handleLoadMore}>Load More</button>
                     </div>
                 </div>
             )

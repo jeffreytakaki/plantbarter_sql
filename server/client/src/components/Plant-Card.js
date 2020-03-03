@@ -10,16 +10,15 @@ export const PlantCard = props => {
         
         <li className='plant-card' id={props.plant.plant_id}>
             {showDelete}
-            <div className="plant-row"><img src={props.plant.image_url} /></div>
+            <div className="plant-row plant-img">
+              <Link to={`/plant/${props.plant.plant_id}`}>
+                <img src={props.plant.image_url} />
+              </Link>
+              {showAddButton}
+            </div>
             <div className="plant-row">
                 <Link to={`/plant/${props.plant.plant_id}`}><h4 className='plant-name'>{props.plant.name}</h4></Link>
             </div>
-            <div className="plant-row">
-                {showAddButton}                
-            </div>            
-            
-            
-
         </li>
         
     )

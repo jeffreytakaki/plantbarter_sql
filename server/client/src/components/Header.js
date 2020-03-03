@@ -60,7 +60,7 @@ class Header extends React.Component {
                     onStateChange={(state) => this.handleStateChange(state)}
                 >
                     <div className="section">
-                        <Link to="/home" onClick={() => this.closeMenu()}>Home</Link>
+                        <Link to="/" onClick={() => this.closeMenu()}>Home</Link>
                     </div>  
                     <div className="section">
                         <Link to="/account" onClick={() => this.closeMenu()}>Login/Signup</Link>
@@ -74,21 +74,21 @@ class Header extends React.Component {
                     isOpen={this.state.menuOpen}
                     onStateChange={(state) => this.handleStateChange(state)}
                 >
-                    <div className="section">
-                        hi, {this.props.users.username}
-                    </div>
-                    <div className="section">
-                        <Link to="/home" onClick={() => this.closeMenu()}>Home</Link>
-                    </div>     
-                    <div className="section">     
-                        <Link to="/plant-collection" onClick={() => this.closeMenu()}>collection</Link>
-                    </div>
-                    <div className="section">     
-                        <Link to="/profile" onClick={() => this.closeMenu()}>profile</Link>
-                    </div>
-                    <div className="section">     
-                        <button onClick={this.logout}>logout</button>
-                    </div>
+                  <div className="section">
+                    <Link to="/account" onClick={() => this.closeMenu()}>{this.props.users.username}</Link>
+                  </div>
+                  <div className="section">
+                      <Link to="/" onClick={() => this.closeMenu()}>Home</Link>
+                  </div>    
+                  <div className="section">     
+                      <Link to="/plant-collection" onClick={() => this.closeMenu()}>Plants</Link>
+                  </div>
+                  <div className="section">     
+                      <Link to="/account/plants" onClick={() => this.closeMenu()}>My Plants</Link>
+                  </div>
+                  <div className="section">     
+                    <a><button onClick={this.logout}>Logout</button></a>
+                  </div>
                 </Menu>
             )
         }
@@ -99,7 +99,7 @@ class Header extends React.Component {
         return (
 
             <header className="App-header">
-                <div className="section logo-container">logo</div>
+                <div className="section logo-container"><Link to="/" onClick={() => this.closeMenu()}><p class="header-title font-abril-fatface">Botanically</p></Link></div>
                 {this.handleUserState(this.props)}
             </header>
 
