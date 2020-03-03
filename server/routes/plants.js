@@ -63,7 +63,7 @@ router.post('/', function (req, res) {
 // Return top traded plants
 router.post('/search/top-five', function (req, res) {
     // Get plant ids of the most added plant to trade in the users_plants table
-    const getPopularPlantIds = `SELECT * FROM plants WHERE plants.plant_id IN (SELECT plant_id FROM  users_plants GROUP BY plant_id ORDER BY COUNT(plant_id) DESC)  GROUP BY plant_id ORDER BY plant_id DESC LIMIT 5;`;
+    const getPopularPlantIds = `SELECT * FROM plants WHERE plants.plant_id IN (SELECT plant_id FROM  users_plants GROUP BY plant_id ORDER BY COUNT(plant_id) DESC) LIMIT 5;`;
 
     connection.query(getPopularPlantIds, (error, results) => {
         if (error) res.json(error);
