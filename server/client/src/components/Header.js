@@ -60,10 +60,10 @@ class Header extends React.Component {
                     onStateChange={(state) => this.handleStateChange(state)}
                 >
                     <div className="section">
-                        <NavLink to="/home" onClick={() => this.closeMenu()}>Home</NavLink>
+                        <NavLink to="/" onClick={() => this.closeMenu()}>Home</NavLink>
                     </div>  
                     <div className="section">
-                        <NavLink to="/account" onClick={() => this.closeMenu()}>Login/Signup</NavLink>
+                        <NavLink to="/login" onClick={() => this.closeMenu()}>Login/Signup</NavLink>
                     </div>
                 </Menu>
             )
@@ -75,19 +75,19 @@ class Header extends React.Component {
                     onStateChange={(state) => this.handleStateChange(state)}
                 >
                   <div className="section">
-                    <Link to="/account" onClick={() => this.closeMenu()}>{this.props.users.username}</Link>
+                        <NavLink to="/account" onClick={() => this.closeMenu()}>{this.props.users.username}</NavLink>
                   </div>
                   <div className="section">
-                      <Link to="/" onClick={() => this.closeMenu()}>Home</Link>
+                        <NavLink to="/" onClick={() => this.closeMenu()}>Home</NavLink>
                   </div>    
                   <div className="section">     
-                      <Link to="/plant-collection" onClick={() => this.closeMenu()}>Plants</Link>
+                        <NavLink to="/plant-collection" onClick={() => this.closeMenu()}>Plants</NavLink>
                   </div>
                   <div className="section">     
-                      <Link to="/account/plants" onClick={() => this.closeMenu()}>My Plants</Link>
+                        <NavLink to="/account/plants" onClick={() => this.closeMenu()}>My Plants</NavLink>
                   </div>
                   <div className="section">     
-                    <a><button onClick={this.logout}>Logout</button></a>
+                        <a><button onClick={this.logout}>Logout</button></a>
                   </div>
                 </Menu>
             )
