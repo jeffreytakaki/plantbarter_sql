@@ -3,13 +3,16 @@ const fs = require('fs');
 const path = require('path');
 
 // https://flaviocopes.com/node-mysql/
+
 const options = {
-    user: 'root',
-    password: 'YOURSUPERSECRETPASSWORD',
-    database: 'plantBarter_05',
-    host:   '127.0.0.1',
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_TABLE,
+    host: process.env.DATABASE_HOST,
     multipleStatements: true
 }
+
+console.log('options', options);
 
 const connection = mysql.createConnection(options);
 
