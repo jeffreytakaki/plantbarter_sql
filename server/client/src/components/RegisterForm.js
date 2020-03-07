@@ -36,7 +36,7 @@ class RegisterForm extends React.Component {
 
     loginRedirect() {
       
-        return ( <Redirect to="/profile" /> );
+        return ( <Redirect to="/account" /> );
     }   
 
     render() {

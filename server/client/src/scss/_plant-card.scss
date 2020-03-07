@@ -1,3 +1,5 @@
+@import './variables';
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -6,22 +8,51 @@ ul {
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    li.plant-card {
+
+    li{
+
+      &.plant-card {
         position: relative;
         width: 200px;
         padding: 2%;
-        div.delete-card {
-            position: absolute;
-            right: 10px;
-            &:hover { cursor: pointer; }
+
+        .plant-row {
+          display: flex;
+          text-align: center;
+          justify-content: space-evenly;
+          flex-direction: row;
+          position:relative;
+
+          &.plant-img{
+            button{
+              &.btn-primary{
+                position: absolute;
+                bottom: 5px;
+                right: 5px;
+              }
+            }
+          }
+
+          
         }
-        div.plant-row {
-            display: flex;
-            text-align: center;
-            justify-content: space-evenly;
-            flex-direction: row;
+  
+
+        .delete-card {
+          position: absolute;
+          right: 22px;
+          top: 22px;
+          background-color: white;
+          z-index: 1;
+          border-radius: 50%;
+          line-height: 22px;
+          height: 25px;
+          width: 24px;
+          text-align: center;
+          box-shadow: 1px 3px 5px rgba(0,0,0,.1);
+
+          &:hover { cursor: pointer; }
         }
-    
+        
         .btn {
             width: 35%;
         }
@@ -29,9 +60,15 @@ ul {
             width: 100%;
         }
         
-        h4.plant-name {
-            font-size: 16px;
+        .plant-name {
+          font-size: 18px;
+          margin: 15px 10px;
+
+          background-color: transparent;
+          font-family: 'Open Sans';
+          color: #777;
         }
+      }
     }
     
 }
