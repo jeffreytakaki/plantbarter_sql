@@ -10,7 +10,7 @@ header {
     z-index: 11111;
     box-shadow: 0 3px 10px rgba(0,0,0,.1);
 
-    .section{
+    .sections{
       
     }
     .logo-container {
@@ -75,6 +75,23 @@ header {
             margin: 0;
             color: #0da986;
           }
+        }
+      }
+    }
+
+    .profile{
+      &--wrp {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+      }
+      &--img{
+        width: 40px;
+        height: 40px;
+        padding: 5px;
+
+        img{
+          width: 100%;
         }
       }
     }

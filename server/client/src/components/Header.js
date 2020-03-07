@@ -99,8 +99,19 @@ class Header extends React.Component {
         return (
 
             <header className="App-header">
-                <div className="section logo-container"><Link to="/" onClick={() => this.closeMenu()}><p class="header-title font-abril-fatface">Botanically</p></Link></div>
+                <div className="section logo-container">
+                  <Link to="/" onClick={() => this.closeMenu()}>
+                    <p className="header-title font-abril-fatface">Botanically</p>
+                  </Link>
+                </div>
+
                 {this.handleUserState(this.props)}
+
+                <div className="profile--wrp">
+                  <div className="profile--img">
+                    <img src="../icon-avatar.png"/>
+                  </div>
+                </div>
             </header>
 
         )
