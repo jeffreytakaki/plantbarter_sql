@@ -41,7 +41,6 @@ class Search extends React.Component {
     displayResults() {
 
         if(this.props.search && this.props.search.length > 0) {
-            console.log('this.props.search', this.props.search)
             return (
                 <div className="search-results">
                     <div className="search-section">
@@ -87,7 +86,6 @@ const mapDispatchToEvents = (dispatch) => {
 };
 
 const mapStateToProps = (state) => {
-    console.log("state.searchResults", state)
     return {
         search: state.searchResults
     }

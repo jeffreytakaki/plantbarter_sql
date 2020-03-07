@@ -1,5 +1,6 @@
 import React from 'react';
 import Search from '../components/Search';
+import CommonlyTradedConnected from '../components/Commonly-Traded';
 
 export default class Home extends React.Component {
     constructor(props, dispatch) {
@@ -21,63 +22,14 @@ export default class Home extends React.Component {
 
                 <Search />
 
-                <div className="commonly-traded sections">
-                  <div className="commonly-traded--plants">
-                    <div className="sections--title">
-                      <h1>Most commonly traded plants</h1>
-                    </div>
-                    <ul>
-                      <li className='plant-card'>
-                        <div className="plant-row">
-                          <a href="">
-                            <img src="../icon-food.png"/>
-                            <h3>Strawberries</h3>
-                          </a>
-                        </div>
-                      </li>
-                      <li className='plant-card'>
-                        <div className="plant-row">
-                          <a href="">
-                            <img src="../icon-food.png"/>
-                            <h3>Watermelon</h3>
-                          </a>
-                        </div>
-                      </li>
-                      <li className='plant-card'>
-                        <div className="plant-row">
-                          <a href="">
-                            <img src="../icon-food.png"/>
-                            <h3>Oranges</h3>
-                          </a>
-                        </div>
-                      </li>
-                      <li className='plant-card'>
-                        <div className="plant-row">
-                          <a href="">
-                            <img src="../icon-food.png"/>
-                            <h3>Basil</h3>
-                          </a>
-                        </div>
-                      </li>
-                      <li className='plant-card'>
-                        <div className="plant-row">
-                          <a href="">
-                            <img src="../icon-food.png"/>
-                            <h3>Avocado</h3>
-                          </a>
-                        </div>
-                      </li>
-
-                      
-                    </ul>
-                    <a href="" className="link--see-more">See More</a>
-                  </div>
-                </div>
+                
 
                 <div className="sections how-it-works" id="how-it-works">
-                  <div className="sections--title">
-                    <h1>How it works</h1>
-                  </div>
+                    <div className="sections--title">
+                        <h1>How it works</h1>
+                    </div>
+
+                    <CommonlyTradedConnected />
                   
                   <ul>
                     <li>
