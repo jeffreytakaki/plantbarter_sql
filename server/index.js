@@ -1,3 +1,4 @@
+require('dotenv').config({path:  __dirname + '/../.env'});
 const express = require('express');
 const passport = require('passport');
 const path = require('path');
@@ -12,7 +13,6 @@ const usersplants = require('./routes/usersplants');
 const cors = require('cors');
 const jwtConfig = require('./authentication/jwtConfig');
 const jwt = require('jsonwebtoken');
-
 // create our Express app
 const app = express();
 app.use(cors());
