@@ -1,9 +1,9 @@
 import React from 'react';
 import HeaderConnected from './components/Header';
-import Home from './pages/Home'
-import ProfileConnected from './pages/Profile'
+import Home from './pages/Home';
+import ProfileConnected from './pages/Profile';
+import MessagesConnected from './pages/Messages';
 import PlantCollection from './pages/PlantCollection';
-import PlantForm from './components/Plant-Form';
 import Plant from './pages/Plant';
 import UserPlants from './pages/UserPlants';
 import LoginSignupContainer from './pages/LoginSignupContainer';
@@ -24,6 +24,7 @@ class App extends React.Component {
                 <Route path='/home' component={Home} />
                 <Route path='/account/edit' component={RegisterFormConnected} />
                 <Route path='/account/plants' component={UserPlants} />
+                <Route path='/account/messages' component={MessagesConnected} />
                 <Route path='/account' component={ProfileConnected} />
                 <Route path='/plant/:plant_id' component={Plant} />
                 <Route path='/plant-collection' component={PlantCollection} />

@@ -78,6 +78,9 @@ class Header extends React.Component {
                         <NavLink to="/account" onClick={() => this.closeMenu()}>{this.props.users.username}</NavLink>
                   </div>
                   <div className="section">
+                        <NavLink to="/account/messages" onClick={() => this.closeMenu()}>Messages</NavLink>
+                  </div>
+                  <div className="section">
                         <NavLink to="/" onClick={() => this.closeMenu()}>Home</NavLink>
                   </div>    
                   <div className="section">     
