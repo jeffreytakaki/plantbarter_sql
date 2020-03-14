@@ -55,10 +55,12 @@ module.exports = function(passport) {
         newUserMysql.password = await pwHelpers.encryptPassword(password); // use the generateHash function in our user model
 
         let q = `INSERT INTO users(first_name, last_name, email, username, password) VALUES ('${newUserMysql.first_name}', '${newUserMysql.last_name}', '${newUserMysql.email}', '${newUserMysql.username}', '${newUserMysql.password}');`;
-        connection.query(q, (error, results,field) => {
+        connection.query(q, (error, results, field) => {
             if(error) {
-                return done(error);
+                console.log('error here', error)
+                return done(error, false);
             }
+            console.log('ps 1')
             if (results.insertId) {
                 connection.query(`SELECT * FROM users WHERE users.email='${req.body.email}';`, (error, results) => {
                     console.log('error', error)
@@ -89,16 +91,21 @@ module.exports = function(passport) {
         let q = `SELECT * FROM users WHERE users.email = '${req.body.email}';`;
         console.log('q', q)
         connection.query(q, (error, results,field) => {
+            console.log('error', error);
+            console.log('results', results)
             if(error) return done(null, error);
             
             if(results.length) {
                 // Load hash from your password DB.
                 bcrypt.compare(req.body.password, results[0].password, function(err, res) {
-                    
                     if(res) return done(null,results[0]);
-                    
                     return done(null, false);
                 });
+            } else {
+                // could not log in user
+                console.log('reaching else statement');
+
+                return done(null, false)
             }
             
         });

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { handleGlobalMessages } from './globalMessageHelper';
+
 let updateHeaders = () => {
     let config = {
         headers: {
@@ -23,6 +24,7 @@ export const deleteUserPlant = (plant_id) => {
         if(response.data.code == "ER_BAD_FIELD_ERROR") {
             console.log('error', response.data.code)
         }
+        handleGlobalMessages(response, dispatch)
         dispatch({type: "DELETE_USER_PLANT_LIST", payload: response})
     }
 }

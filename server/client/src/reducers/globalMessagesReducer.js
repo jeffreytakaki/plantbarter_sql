@@ -1,6 +1,8 @@
 const globalMsgs = (state = [], action) => {
     switch (action.type) {
+        
         case 'SET_GLOBAL_MSG':
+            console.log('action.payload', action.payload)
             return [
                 action.payload.data.message,
                 ...state

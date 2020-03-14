@@ -35,20 +35,47 @@ passportConfig(passport); //get local strategies from passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.post('/signup', passport.authenticate('local-signup'), (req, res) => {
-    const token = jwt.sign({id: req.user.username}, jwtConfig.secret)
-    req.user.token = token;
-    res.json(req.user)
-});
-app.post('/login', passport.authenticate('local-login'), (req, res) => {
-    const token = jwt.sign({id: req.user.username}, jwtConfig.secret)
-    res.status(200).json(
-        {
-            auth: true,
-            token,
-            user: req.user
+app.post('/signup',
+function(req, res, next) {
+    passport.authenticate('local-signup', function(err, user, info) {
+        if (err) { 
+            console.log('signup 1')
+            // duplicated email/username catch
+            res.json({auth: false, message: "username/email already in use. Please try a different one"})
+            return false; 
         }
-    )
+        if (!user) { 
+            res.status(500).json({message:'hello2'}) 
+            return false; 
+        }
+
+        req.logIn(user, function(err) {
+            if (err) { return next(err); }
+            const token = jwt.sign({id: req.user.username}, jwtConfig.secret)
+            req.user.token = token;
+            res.json(req.user)
+        });
+
+    })(req, res, next)
+})  
+
+app.post('/login', 
+function(req, res, next) {
+    passport.authenticate('local-login', function(err, user, info) {
+        console.log("start", err, user, info)
+        if (err) { res.json({message: err}) }
+        if (!user) { 
+            // bad username or password catch
+            res.json({message: 'username/password not found!'}) 
+        }
+        req.logIn(user, function(err) {
+            if (err) { return next(err); }
+            const token = jwt.sign({id: req.user.username}, jwtConfig.secret)
+            req.user.token = token;
+            res.json(req.user)
+        });
+
+    })(req, res, next)
 });
 
 app.post('/logout', (req, res) => {

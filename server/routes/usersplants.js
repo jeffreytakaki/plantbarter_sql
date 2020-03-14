@@ -78,7 +78,7 @@ router.delete('/plant/:plant_id', function (req, res) {
             connection.query(deleteQuery, (error, results) => {
                 if(error) res.json(error);
 
-                res.json({response: results.affectedRows, plant_id: req.params.plant_id} )
+                res.json({message: 'Plant deleted!', response: results.affectedRows, plant_id: req.params.plant_id} )
 
             })
 
