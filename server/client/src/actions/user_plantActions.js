@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { handleGlobalMessages } from './globalMessageHelper';
 let updateHeaders = () => {
     let config = {
         headers: {
@@ -31,18 +31,11 @@ export const createUserPlant = (plant_id) => {
     return async function(dispatch, getState) {
         let response = await axios.post(`/api/v1/profile/plant/add`, {plant_id}, updateHeaders())
         if(response.data.statusCode == 500) {
-            dispatch({type: "SET_GLOBAL_MSG", payload: response})
-            setTimeout(() => {
-                dispatch({type: "CLEAR_GLOBAL_MSG", payload: {index: 0}})
-            }, 3000)
+            handleGlobalMessages(response, dispatch)
             return false;
         }
         dispatch({type: "CREATE_USER_PLANT_LIST", payload: response})
-        dispatch({type: "SET_GLOBAL_MSG", payload: response})
-        setTimeout(() => {
-            dispatch({type: "CLEAR_GLOBAL_MSG", payload: {}})
-        }, 3000)
-        
+        handleGlobalMessages(response, dispatch)   
     }
 }
 
