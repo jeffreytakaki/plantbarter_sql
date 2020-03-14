@@ -1,6 +1,4 @@
-import { } from './types';
 import axios from 'axios';
-import { config } from './axiosHelper';
 
 let updateHeaders = () => {
     let config = {
@@ -33,10 +31,18 @@ export const createUserPlant = (plant_id) => {
     return async function(dispatch, getState) {
         let response = await axios.post(`/api/v1/profile/plant/add`, {plant_id}, updateHeaders())
         if(response.data.statusCode == 500) {
-            console.log('error', response.data.message)
+            dispatch({type: "SET_GLOBAL_MSG", payload: response})
+            setTimeout(() => {
+                dispatch({type: "CLEAR_GLOBAL_MSG", payload: {index: 0}})
+            }, 3000)
             return false;
         }
         dispatch({type: "CREATE_USER_PLANT_LIST", payload: response})
+        dispatch({type: "SET_GLOBAL_MSG", payload: response})
+        setTimeout(() => {
+            dispatch({type: "CLEAR_GLOBAL_MSG", payload: {}})
+        }, 3000)
+        
     }
 }
 

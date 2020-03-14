@@ -48,7 +48,7 @@ router.post('/plant/add', function (req, res) {
                     const getPlantQuery = `SELECT * FROM plants WHERE plant_id=${req.body.plant_id};`
                     connection.query(getPlantQuery, (error, results) => {
                         if (error) res.json(error)
-                        res.json({statusCode: 200, results});
+                        res.json({statusCode: 200, message: "Plant added!", results});
                     })
 
                 })

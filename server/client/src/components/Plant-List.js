@@ -19,10 +19,12 @@ class PlantList extends React.Component {
         
     }
 
-    handleAddPlant(event) {
+    async handleAddPlant(event) {
         console.log('event.target', event.target.dataset)
         const plant_id = event.target.dataset.addId;
-        this.props.addUserPlant(plant_id);
+        let response = await this.props.addUserPlant(plant_id);
+
+        console.log('response', response)
     }
 
     render(props) {

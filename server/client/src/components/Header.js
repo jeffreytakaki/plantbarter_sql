@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { logoutUser, findUser } from '../actions/userAction';
 import { Link, NavLink } from "react-router-dom";
 import { slide as Menu } from 'react-burger-menu';
+import { GlobalMessages } from './Global-Messages';
 
 
 class Header extends React.Component {
@@ -16,6 +17,7 @@ class Header extends React.Component {
         this.handleStateChange = this.handleStateChange.bind(this)
         this.closeMenu = this.closeMenu.bind(this)
         this.logout = this.logout.bind(this)
+        this.displayGlobalMessages = this.displayGlobalMessages.bind(this)
 
         
     }
@@ -94,11 +96,18 @@ class Header extends React.Component {
         }
     }
 
+    displayGlobalMessages() {
+        if(this.props.globalMsg.length) {
+            return <GlobalMessages message={this.props.globalMsg} />
+        }
+    }
+
     render() {   
 
         return (
 
             <header className="App-header">
+                {this.displayGlobalMessages()}
                 <div className="section logo-container">
                   <Link to="/" onClick={() => this.closeMenu()}>
                     <p className="header-title font-abril-fatface">Botanically</p>
@@ -119,9 +128,9 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    // console.log('state', state)
     return {
-        users: state.users
+        users: state.users, 
+        globalMsg: state.globalMsg
     }
 };
 const mapDispatchToEvents = (dispatch) => {
