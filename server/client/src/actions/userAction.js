@@ -52,15 +52,3 @@ export function registerUser(user) {
         dispatch({type: CREATE_USER, payload: response })
     }
 }
-
-// to catch bad logins, since modifying the passportjs file would take too long. 
-axios.interceptors.response.use(response => {
-    return response;
- }, error => {
-    if (error.response.status === 401) {}
-    if (error.response.status === 500) {
-        console.log('error 500');
-        // handleGlobalMessages({data: {message: '!'}}, dispatch);
-    }
-   return error;
- });
