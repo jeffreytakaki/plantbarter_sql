@@ -18,16 +18,15 @@ export const findUser = () => {
 export const loginUser = (user) => {
     return async function(dispatch, getState) {
         let response = await axios.post('/login', user);
-        
-        if(response.auth == true) {
+        console.log('response', response)
+        if(response.data['user_id']) {
             localStorage.setItem('plantToken', response.data.token);
-            dispatch({type: LOGIN_USER, payload: response.data.user })
+            dispatch({type: LOGIN_USER, payload: response.data })
         } else {
-            handleGlobalMessages({data: {message: response.message}}, dispatch);
+            console.log('response')
+            handleGlobalMessages(response, dispatch);
             return false;
         }
-        
-        
     }
 }
 

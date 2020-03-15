@@ -11,7 +11,7 @@ const bcrypt = require('bcrypt');
 module.exports = function(passport) {
 
     passport.serializeUser(function(user, done) {
-        // console.log('serialize session', user.user_id);
+        console.log('serialize session', user.user_id);
         done(null, user);
     }); 
     passport.deserializeUser(function(user, done) {
@@ -88,23 +88,27 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     async function(req, email, password, done) { // callback with email and password from our form
-        let q = `SELECT * FROM users WHERE users.email = '${req.body.email}';`;
-        console.log('q', q)
+        const q = `SELECT * FROM users WHERE users.email = '${req.body.email}';`;
+        
         connection.query(q, (error, results,field) => {
-            console.log('error', error);
-            console.log('results', results)
             if(error) return done(null, error);
             
             if(results.length) {
                 // Load hash from your password DB.
+                console.log(req.body.password)
+                console.log(results[0].password)
                 bcrypt.compare(req.body.password, results[0].password, function(err, res) {
-                    if(res) return done(null,results[0]);
-                    return done(null, false);
+                    // res returns true/false
+                    if(res) {
+                        console.log('results[0]', results[0])
+                        return done(null, results[0]);
+                    } else  {
+                        return done(null, false);   
+                    };
                 });
             } else {
                 // could not log in user
                 console.log('reaching else statement');
-
                 return done(null, false)
             }
             

@@ -63,6 +63,7 @@ class LoginForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log('state here', state)
     return {
         users: state.users
     }

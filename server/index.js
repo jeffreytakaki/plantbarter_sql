@@ -45,7 +45,7 @@ function(req, res, next) {
             return false; 
         }
         if (!user) { 
-            res.status(500).json({message:'hello2'}) 
+            res.status(500).json({message:'missing user'}) ;
             return false; 
         }
 
@@ -64,16 +64,16 @@ function(req, res, next) {
     passport.authenticate('local-login', function(err, user, info) {
         console.log("start", err, user, info)
         if (err) { res.json({message: err}) }
-        if (!user) { 
-            // bad username or password catch
-            res.json({message: 'username/password not found!'}) 
-        }
+        if (!user) { res.json({message: 'username/password not found!'}) }; // bad username or password catch
+        
         req.logIn(user, function(err) {
-            if (err) { return next(err); }
+            if (err) return next(err);
+
             const token = jwt.sign({id: req.user.username}, jwtConfig.secret)
             req.user.token = token;
             res.json(req.user)
         });
+        
 
     })(req, res, next)
 });
