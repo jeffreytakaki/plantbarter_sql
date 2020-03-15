@@ -98,16 +98,27 @@ class Header extends React.Component {
 
     displayGlobalMessages() {
         if(this.props.globalMsg.length) {
-            return <GlobalMessages message={this.props.globalMsg} />
+
+            let globalMessages = this.props.globalMsg.map((plant, i) => {
+                return <GlobalMessages key={i} message={this.props.globalMsg} />
+            });
+
+            return globalMessages;
+            
         }
     }
 
     render() {   
 
+        const setClass = (this.props.globalMsg.length) ? 'show-message' : 'hide-message';
+
         return (
 
             <header className="App-header">
-                {this.displayGlobalMessages()}
+                <div id="global-msg-container" className={setClass}>
+                    {this.displayGlobalMessages()}
+                </div>
+                
                 <div className="section logo-container">
                   <Link to="/" onClick={() => this.closeMenu()}>
                     <p className="header-title font-abril-fatface">Botanically</p>
